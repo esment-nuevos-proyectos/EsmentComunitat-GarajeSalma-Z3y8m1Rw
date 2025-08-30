@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Garaje Salma · Business Model Canvas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#f3f3f1; --ink:#1f2a2e; --muted:#66737a; --brand:#FFD84D; --stroke:#cfcfc9; --card:#ffffff; --shadow:0 6px 18px rgba(0,0,0,.06); }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;}
+
+    #app-root + #app-root{display:none !important}
+
+    header{position:sticky; top:0; z-index:1; background:linear-gradient(180deg, rgba(243,243,241,.96), rgba(243,243,241,.86)); border-bottom:1px solid var(--stroke); padding:16px 24px}
+    header h1{font-size:28px; line-height:1.2; margin:0}
+
+    main{margin:24px auto 60px; padding:0 24px; width:100%;}
+
+    .purpose-strip{background:#111; color:#fff; border:3px solid var(--brand); border-radius:12px; padding:12px 16px; font-weight:700; text-align:center; box-shadow:var(--shadow); margin-bottom:20px}
+    .purpose-strip small{display:block; font-weight:600; letter-spacing:.3px; opacity:.9; text-transform:uppercase}
+
+    .bmc-grid{display:grid; gap:14px; grid-template-columns: repeat(5, 1fr); grid-template-rows: 280px 160px 220px; grid-template-areas:"partners activities value relationships segments" "partners resources value channels segments" "costs costs costs revenues revenues"; border:2px solid var(--stroke); padding:14px; background:var(--card); box-shadow:var(--shadow); border-radius:12px; width:100%;}
+
+    .cell{border:2px solid var(--stroke); border-radius:10px; background:#fff; display:flex; flex-direction:column; overflow:hidden}
+    .cell .title{padding:10px 12px; font-weight:700; color:#2d3a40; border-bottom:2px solid var(--stroke); background:linear-gradient(180deg,#faf9f3,#fff8d9)}
+    .cell .content{padding:12px 14px; overflow:auto}
+    .cell .content ul{margin:0 0 0 18px; padding:0}
+    .cell .content li{margin:8px 0}
+
+    .partners{grid-area:partners}
+    .activities{grid-area:activities}
+    .resources{grid-area:resources}
+    .value{grid-area:value}
+    .relationships{grid-area:relationships}
+    .segments{grid-area:segments}
+    .channels{grid-area:channels}
+    .costs{grid-area:costs}
+    .revenues{grid-area:revenues}
+
+    .value .title{background:linear-gradient(180deg,#ffe990,#ffe067); border-bottom-color:#e5d07a}
+    .value .content{font-size:17px}
+
+    @media (max-width: 1000px){
+      .bmc-grid{grid-template-columns:1fr; grid-template-rows:auto; grid-template-areas:none}
+    }
+  </style>
+</head>
+<body>
+  <div id="app-root">
+    <header>
+      <h1>Business Model Canvas · Garaje Salma</h1>
+    </header>
+
+    <main aria-live="polite">
+      <div class="purpose-strip"><small>Propósito</small>Hacer de la accesibilidad una oportunidad de innovación, inclusión y comunidad.</div>
+
+      <section class="bmc-grid" role="grid" aria-label="Lienzo Business Model Canvas">
+        <section class="cell partners" role="region" aria-labelledby="t-partners">
+          <div id="t-partners" class="title">Socios Clave</div>
+          <div class="content">
+            <ul>
+              <li><strong>Ayuntamiento de Palma</strong>.</li>
+              <li>Consell de Mallorca y Govern Balear.</li>
+              <li>Empresas tecnológicas, de diseño y domótica.</li>
+              <li>Universidades, centros de FP, institutos y centros juveniles.</li>
+              <li>Entidades del tercer sector y redes de innovación social.</li>
+              <li>Red vecinal del barrio, AMPAs y asociaciones culturales y juveniles.</li>
+              <li>Agentes culturales locales e internacionales.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="cell activities" role="region" aria-labelledby="t-activities">
+          <div id="t-activities" class="title">Actividades Clave</div>
+          <div class="content">
+            <ul>
+              <li>Diseño y fabricación de ayudas técnicas (3D / fab digital).</li>
+              <li><strong>Adaptación del hogar</strong> y de espacios cotidianos para la vida independiente.</li>
+              <li>Formación en tecnologías inclusivas para <strong>niños, jóvenes y adultos</strong>.</li>
+              <li>Consultoría de accesibilidad a empresas y administraciones (espacios, productos, puestos de trabajo).</li>
+              <li>Investigación y prototipado con universidades.</li>
+              <li><strong>Escucha activa y procesos participativos</strong> con la comunidad (mapas de activos, paseos vecinales, talleres).</li>
+              <li>Programación cultural codiseñada con el barrio (música, cine, exposiciones, talleres maker).</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="cell resources" role="region" aria-labelledby="t-resources">
+          <div id="t-resources" class="title">Recursos Clave</div>
+          <div class="content">
+            <ul>
+              <li>Impresoras 3D, software CAD, domótica y robótica social.</li>
+              <li>Equipo humano: personas con discapacidad formadas, técnicos, formadores, consultores de accesibilidad.</li>
+              <li>Educadores y dinamizadores comunitarios para actividades con <strong>infancia y juventud</strong>.</li>
+              <li>Espacio Garaje Salma (laboratorio, taller y bar comunitario).</li>
+              <li>Marca y confianza Esment; alianzas educativas, institucionales y culturales.</li>
+              <li>Plataformas digitales para mapeo de activos y comunicación multicanal.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="cell value" role="region" aria-labelledby="t-value">
+          <div id="t-value" class="title">Propuesta de Valor</div>
+          <div class="content">
+            <ul>
+              <li><strong>Laboratorio para la accesibilidad</strong> con apoyos personalizados y asequibles.</li>
+              <li><strong>Adaptación del hogar y espacios comunitarios</strong> para favorecer la autonomía.</li>
+              <li><strong>Formación</strong> en impresión 3D, domótica y robótica para <strong>niños, jóvenes y adultos</strong>.</li>
+              <li><strong>Consultoría</strong> de accesibilidad para empresas, administraciones y espacios públicos.</li>
+              <li><strong>Bar social</strong> y actividades culturales que conectan a <strong>vecindario, infancia y juventud</strong> en torno a la comunidad.</li>
+              <li><strong>Empleo inclusivo</strong> en sectores tecnológicos emergentes.</li>
+              <li><strong>Visibilización y cambio de mirada</strong> sobre la discapacidad a través del arte y la cultura.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="cell relationships" role="region" aria-labelledby="t-relationships">
+          <div id="t-relationships" class="title">Relación con Clientes</div>
+          <div class="content">
+            <ul>
+              <li>Acompañamiento personalizado y co-creación de soluciones accesibles.</li>
+              <li>Vínculo comunitario: actividades intergeneracionales <strong>niños-jóvenes-adultos</strong>.</li>
+              <li><strong>Escucha activa</strong> de vecinos, asociaciones y colectivos para definir actividades y apoyos.</li>
+              <li>Servicios profesionales y de confianza para empresas (adaptación de puestos, consultoría) y administraciones.</li>
+              <li><strong>Relación cultural</strong>: nuevas narrativas y arte como medio de comunicación y sensibilización.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="cell segments" role="region" aria-labelledby="t-segments">
+          <div id="t-segments" class="title">Segmentos de Clientes</div>
+          <div class="content">
+            <ul>
+              <li>Personas con discapacidad y mayores.</li>
+              <li><strong>Niños y jóvenes</strong> (escuelas, institutos, ocio educativo).</li>
+              <li>Empresas (adaptación de puestos, formación, RSC).</li>
+              <li><strong>Ayuntamiento de Palma</strong>, Consell de Mallorca y Govern Balear.</li>
+              <li>Comunidad del barrio y entidades sociales y culturales.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="cell channels" role="region" aria-labelledby="t-channels">
+          <div id="t-channels" class="title">Canales</div>
+          <div class="content">
+            <ul>
+              <li>Espacio Garaje Salma (laboratorio y bar).</li>
+              <li>Talleres y programas con <strong>colegios, institutos y centros juveniles</strong>.</li>
+              <li>Formación dual y actividades extraescolares STEM inclusivo.</li>
+              <li>Consultoría directa a empresas y administraciones.</li>
+              <li>Web y redes de Esment; alianzas con AMPAs, asociaciones juveniles y agentes culturales.</li>
+              <li>Campañas multicanal y uso del arte como vector de comunicación comunitaria.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="cell costs" role="region" aria-labelledby="t-costs">
+          <div id="t-costs" class="title">Estructura de Costos</div>
+          <div class="content">
+            <ul>
+              <li>Equipamiento tecnológico (3D, software, herramientas).</li>
+              <li>Personal (técnicos, formadores, consultores, educadores, hostelería).</li>
+              <li>Mantenimiento del espacio y suministros.</li>
+              <li>Materiales didácticos, culturales y de talleres para <strong>infancia, juventud y adultos</strong>.</li>
+              <li>Procesos de participación y escucha comunitaria.</li>
+              <li>Comunicación, campañas y eventos culturales.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="cell revenues" role="region" aria-labelledby="t-revenues">
+          <div id="t-revenues" class="title">Fuente de Ingresos</div>
+          <div class="content">
+            <ul>
+              <li>Venta de ayudas técnicas personalizadas y adaptaciones del hogar.</li>
+              <li>Servicios de consultoría en accesibilidad a empresas y administraciones.</li>
+              <li>Formación y programas para <strong>escuelas, institutos y empresas</strong>.</li>
+              <li>Subvenciones y convenios públicos (innovación, juventud, cultura, accesibilidad).</li>
+              <li>Ingresos del bar social y programación cultural participativa.</li>
+              <li>Festivales y proyectos culturales colaborativos.</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const apps = document.querySelectorAll('#app-root');
+      for (let i = 1; i < apps.length; i++) apps[i].remove();
+    });
+  </script>
+</body>
+</html>
