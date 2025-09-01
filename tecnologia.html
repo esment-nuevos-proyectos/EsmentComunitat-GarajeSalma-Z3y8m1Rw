@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Garaje Salma · Business Model Canvas (Tecnología)</title>
+
+  <!-- Evitar indexación en buscadores -->
+  <meta name="robots" content="noindex, nofollow, noarchive, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive, noimageindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#f3f3f1; --ink:#1f2a2e; --muted:#66737a; --brand:#FFD84D; --stroke:#cfcfc9; --card:#ffffff; --shadow:0 6px 18px rgba(0,0,0,.06); }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;}
+
+    #app-root + #app-root{display:none !important}
+
+    header{position:sticky; top:0; z-index:1; background:linear-gradient(180deg, rgba(243,243,241,.96), rgba(243,243,241,.86)); border-bottom:1px solid var(--stroke); padding:16px 24px}
+    header h1{font-size:28px; line-height:1.2; margin:0}
+
+    main{margin:24px auto 60px; padding:0 24px; width:100%;}
+
+    .purpose-strip{background:#111; color:#fff; border:3px solid var(--brand); border-radius:12px; padding:12px 16px; font-weight:700; text-align:center; box-shadow:var(--shadow); margin-bottom:20px}
+    .purpose-strip small{display:block; font-weight:600; letter-spacing:.3px; opacity:.9; text-transform:uppercase}
+
+    .bmc-grid{
+      display:grid; gap:14px;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: 280px 160px 220px;
+      grid-template-areas:
+        "partners activities value relationships segments"
+        "partners resources  value channels       segments"
+        "costs    costs     costs revenues       revenues";
+      border:2px solid var(--stroke); padding:14px; background:var(--card);
+      box-shadow:var(--shadow); border-radius:12px; width:100%;
+    }
+
+    .cell{border:2px solid var(--stroke); border-radius:10px; background:#fff; display:flex; flex-direction:column; overflow:hidden}
+    .cell .title{padding:10px 12px; font-weight:700; color:#2d3a40; border-bottom:2px solid var(--stroke); background:linear-gradient(180deg,#faf9f3,#fff8d9)}
+    .cell .content{padding:12px 14px; overflow:auto}
+    .cell .content ul{margin:0 0 0 18px; padding:0}
+    .cell .content li{margin:8px 0}
+
+    .partners{grid-area:partners}
+    .activities{grid-area:activities}
+    .resources{grid-area:resources}
+    .value{grid-area:value}
+    .relationships{grid-area:relationships}
+    .segments{grid-area:segments}
+    .channels{grid-area:channels}
+    .costs{grid-area:costs}
+    .revenues{grid-area:revenues}
+
+    .value .title{background:linear-gradient(180deg,#ffe990,#ffe067); border-bottom-color:#e5d07a}
+    .value .content{font-size:17px}
+
+    @media (max-width: 1000px){
+      .bmc-grid{grid-template-columns:1fr; grid-template-rows:auto; grid-template-areas:none}
+    }
+  </style>
+</head>
+<body>
+  <div id="app-root">
+    <header>
+      <h1>Business Model Canvas · Garaje Salma (Tecnología Social)</h1>
+    </header>
+
+    <main aria-live="polite">
+      <div class="purpose-strip">
+        <small>Propósito</small>
+        Un laboratorio de innovación social y comunitaria a través de la tecnología.
+      </div>
+
+      <section class="bmc-grid" role="grid" aria-label="Lienzo Business Model Canvas (Tecnología)">
+        <!-- SOCIOS CLAVE -->
+        <section class="cell partners" role="region" aria-labelledby="t-partners">
+          <div id="t-partners" class="title">Socios Clave</div>
+          <div class="content">
+            <ul>
+              <li><strong>Ayuntamiento de Palma</strong>, Consell de Mallorca y Govern Balear.</li>
+              <li>Empresas tecnológicas (IoT, domótica, robótica, software, diseño de producto).</li>
+              <li>Universidades, centros de FP, institutos y laboratorios de investigación.</li>
+              <li>Startups y makers locales/internacionales (innovación abierta).</li>
+              <li>Entidades del tercer sector y redes de innovación social.</li>
+              <li>Agentes culturales y comunitarios (casals de barri, AMPAs, colectivos artísticos).</li>
+              <li>Plataformas y programas europeos (Erasmus+, Horizon Europe).</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ACTIVIDADES CLAVE -->
+        <section class="cell activities" role="region" aria-labelledby="t-activities">
+          <div id="t-activities" class="title">Actividades Clave</div>
+          <div class="content">
+            <ul>
+              <li><strong>Prototipado y fabricación digital</strong>: impresión 3D, corte láser, diseño CAD.</li>
+              <li><strong>Sensorización e IoT</strong> para hogar, barrio y puestos de trabajo.</li>
+              <li><strong>IA social</strong>: asistentes comunitarios, análisis de necesidades, accesibilidad (subtitulado/voz).</li>
+              <li><strong>Formación tecnológica</strong> (niños, jóvenes y adultos): maker, robótica, domótica, STEAM.</li>
+              <li><strong>Showroom demostrativo</strong>: hogar accesible, oficina inclusiva, barrio inteligente.</li>
+              <li><strong>Consultoría tecnológica y de accesibilidad</strong> a empresas y administraciones.</li>
+              <li>Investigación aplicada con universidades y startups.</li>
+              <li>Procesos de escucha comunitaria y programación cultural participativa.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- RECURSOS CLAVE -->
+        <section class="cell resources" role="region" aria-labelledby="t-resources">
+          <div id="t-resources" class="title">Recursos Clave</div>
+          <div class="content">
+            <ul>
+              <li>Infraestructura: impresoras 3D, kits IoT y sensores, domótica, robótica, software CAD.</li>
+              <li>Plataformas digitales e <strong>IA social</strong> (bots, paneles de datos comunitarios).</li>
+              <li>Equipo humano: makers, técnicos, formadores, consultores de accesibilidad, dinamizadores.</li>
+              <li>Espacio Garaje Salma: laboratorio, taller, showroom y bar social.</li>
+              <li>Marca y confianza Esment; red institucional, educativa y cultural.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- PROPUESTA DE VALOR -->
+        <section class="cell value" role="region" aria-labelledby="t-value">
+          <div id="t-value" class="title">Propuesta de Valor</div>
+          <div class="content">
+            <ul>
+              <li><strong>Tecnología social al servicio de la comunidad</strong>: soluciones reales creadas con y para las personas.</li>
+              <li><strong>Productos y apoyos inclusivos</strong> (ayudas técnicas, adaptaciones de hogar y trabajo) hechos con <strong>impresión 3D</strong> y fablab.</li>
+              <li><strong>Sensorización + IA social</strong> para convertir datos en decisiones y apoyos personalizados.</li>
+              <li><strong>Formación tecnológica</strong> intergeneracional: competencias digitales y maker.</li>
+              <li><strong>Showroom vivo</strong> que demuestra casas, oficinas y barrios inclusivos.</li>
+              <li><strong>Innovación abierta</strong> con universidades, startups y vecinos.</li>
+              <li><strong>Bar social y cultural</strong> como espacio de encuentro con precios populares.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- RELACIÓN CON CLIENTES -->
+        <section class="cell relationships" role="region" aria-labelledby="t-relationships">
+          <div id="t-relationships" class="title">Relación con Clientes</div>
+          <div class="content">
+            <ul>
+              <li><strong>Co-creación</strong> y acompañamiento técnico en soluciones tecnológicas.</li>
+              <li><strong>Relación educativa</strong> basada en aprender haciendo (talleres y retos).</li>
+              <li><strong>Relación profesional</strong> con empresas y administraciones (proyectos, SLAs).</li>
+              <li><strong>Relación cultural y comunitaria</strong> (eventos, arte y datos del barrio en abierto).</li>
+              <li>Transparencia y confianza: paneles de datos y resultados visibles.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- SEGMENTOS DE CLIENTES -->
+        <section class="cell segments" role="region" aria-labelledby="t-segments">
+          <div id="t-segments" class="title">Segmentos de Clientes</div>
+          <div class="content">
+            <ul>
+              <li>Personas con discapacidad y mayores; familias cuidadoras.</li>
+              <li>Niños y jóvenes (escuelas, institutos, FP).</li>
+              <li>Empresas (innovación, accesibilidad tecnológica, RSC).</li>
+              <li>Administraciones públicas (Ayuntamiento de Palma, Consell, Govern).</li>
+              <li>Comunidad del barrio y entidades sociales/culturales.</li>
+              <li>Universidades, centros de investigación y startups.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- CANALES -->
+        <section class="cell channels" role="region" aria-labelledby="t-channels">
+          <div id="t-channels" class="title">Canales</div>
+          <div class="content">
+            <ul>
+              <li>Espacio Garaje Salma (laboratorio, showroom y bar social).</li>
+              <li>Talleres y programas en centros educativos y FP.</li>
+              <li>Consultoría y proyectos llave en mano para empresas y administraciones.</li>
+              <li>Plataformas digitales e <strong>IA social</strong> (apps, bots, panel de datos comunitarios).</li>
+              <li>Web y redes de Esment; eventos culturales y ferias tecnológicas.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- COSTES -->
+        <section class="cell costs" role="region" aria-labelledby="t-costs">
+          <div id="t-costs" class="title">Estructura de Costes</div>
+          <div class="content">
+            <ul>
+              <li>Equipamiento y mantenimiento tecnológico (3D, IoT, robots, software, cloud).</li>
+              <li>Personal (técnicos, formadores, consultores, dinamizadores, hostelería).</li>
+              <li>Espacio físico y suministros (laboratorio, showroom, bar).</li>
+              <li>Materiales para talleres, prototipado y demostraciones.</li>
+              <li>Participación comunitaria, comunicación y eventos.</li>
+              <li>Investigación y desarrollo (pilotos, pruebas con usuarios).</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- INGRESOS -->
+        <section class="cell revenues" role="region" aria-labelledby="t-revenues">
+          <div id="t-revenues" class="title">Fuentes de Ingresos</div>
+          <div class="content">
+            <ul>
+              <li>Venta de <strong>productos inclusivos</strong> y kits (ayudas 3D, domótica, sensorización).</li>
+              <li>Servicios de <strong>consultoría tecnológica</strong> y de accesibilidad a empresas/AA.PP.</li>
+              <li>Formación (escuelas, FP, empresas) y bootcamps maker.</li>
+              <li>Subvenciones y convenios (innovación, juventud, accesibilidad, cultura).</li>
+              <li>Ingresos del <strong>bar social</strong> y de eventos culturales/tecnológicos.</li>
+              <li>Proyectos europeos y colaboraciones con universidades/startups.</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const apps = document.querySelectorAll('#app-root');
+      for (let i = 1; i < apps.length; i++) apps[i].remove();
+    });
+  </script>
+</body>
+</html>
