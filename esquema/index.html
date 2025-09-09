@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Esquema · Vivir en Comunidad (no index)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Evitar indexación por buscadores -->
+  <meta name="robots" content="noindex, nofollow, noarchive, noimageindex, nosnippet, max-image-preview:none">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, noimageindex, nosnippet, max-image-preview:none">
+  <meta name="bingbot" content="noindex, nofollow, noarchive, noimageindex, nosnippet, max-image-preview:none">
+
+  <style>
+    :root{
+      --brand:#FFD84D; --ink:#233042; --muted:#6b7881; --node:#f39c12; --bg:#f6f7f8;
+      --stroke:#e8e8e8; --shadow:0 10px 30px rgba(0,0,0,.10);
+      --header-h:110px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);color:var(--ink);
+      display:flex;align-items:center;justify-content:center
+    }
+
+    .frame{
+      width:95vw;height:92vh;background:#fff;border:6px solid var(--brand);
+      border-radius:28px;display:flex;flex-direction:column;box-shadow:var(--shadow);
+      overflow:hidden;position:relative
+    }
+
+    .header{
+      background:var(--brand);height:var(--header-h);
+      position:relative;display:flex;align-items:center;justify-content:center;
+      padding:0 20px 0 100px;
+    }
+    .logo{
+      position:absolute;left:20px;top:50%;transform:translateY(-50%);
+      width:64px;height:64px;border:2px solid var(--brand);
+      border-radius:14px;background:#fff;overflow:hidden;display:grid;place-items:center
+    }
+    .logo img{width:100%;height:100%;object-fit:contain}
+    .header h1{
+      margin:0;font-weight:800;color:#233042;line-height:1.15;text-align:center;
+      font-size:clamp(1rem, 2.1vw, 1.6rem);
+      max-width:1200px;
+      display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2;
+      overflow:hidden; text-overflow:ellipsis;
+    }
+
+    .canvas{position:relative;flex:1;background:#fff}
+    .stage{position:absolute;width:1800px;height:1000px;transform-origin:top left;}
+
+    svg.diagram{position:absolute;left:0;top:0;width:1800px;height:1000px;pointer-events:none;z-index:0}
+    .nodes{position:absolute;inset:0;z-index:1}
+
+    .node{
+      position:absolute;transform:translate(-50%,-50%);
+      min-width:280px;max-width:420px;
+      background:#fff;border:2px solid var(--node);border-radius:16px;
+      padding:16px 18px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.06);outline:none
+    }
+    .node.small{min-width:250px}
+    .node.core{border-width:3px}
+    .node h3{margin:.2rem 0 .45rem;font-size:18px}
+    .node p{margin:0;color:var(--muted);font-size:14px}
+    .node[role="button"]{cursor:pointer}
+
+    .modal{
+      position:fixed;inset:0;background:rgba(0,0,0,.45);
+      display:none;align-items:center;justify-content:center;padding:16px;z-index:10;
+    }
+    .modal[open]{display:flex}
+    .dialog{background:#fff;max-width:980px;width:100%;border-radius:16px;border:1px solid var(--stroke);box-shadow:var(--shadow)}
+    .dialog header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--stroke)}
+    .dialog h2{margin:0;font-size:1.15rem}
+    .dialog .close{border:0;background:transparent;font-size:1.8rem;cursor:pointer;line-height:1}
+    .dialog .body{padding:18px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{border:1px solid var(--stroke);border-radius:12px;padding:14px}
+    .card h3{margin:.1rem 0 .5rem;font-size:1.02rem}
+    ul{margin:.2rem 0 .2rem 1rem}
+    .kpi{display:inline-block;background:#fff8e0;border:1px solid #ffe7a7;border-radius:999px;padding:6px 10px;font-size:.9rem;margin:2px 6px 6px 0}
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <div class="header">
+      <div class="logo"><img src="resources/logo_simple.png" alt="Logo Esment"></div>
+      <h1>Esquema Servicio Vivir en Comunidad</h1>
+    </div>
+
+    <div class="canvas" id="canvas">
+      <div class="stage" id="stage">
+        <svg class="diagram" id="diagram" viewBox="0 0 1800 1000" aria-hidden="true"></svg>
+
+        <div class="nodes" id="nodes">
+          <div class="node" id="n-servicio" role="button" tabindex="0" aria-controls="m-servicio" aria-haspopup="dialog"
+               data-x="900" data-y="360">
+            <h3>Vivir en comunidad</h3>
+            <p>Vivienda + Apoyos personalizados + Tecnología</p>
+          </div>
+
+          <div class="node small" id="n-usuarios" role="button" tabindex="0"
+               aria-controls="m-usuarios" aria-haspopup="dialog"
+               data-x="480" data-y="180">
+            <h3>Usuarios</h3><p>Acceso y participación</p>
+          </div>
+
+          <div class="node small" id="n-imas" role="button" tabindex="0"
+               aria-controls="m-imas" aria-haspopup="dialog"
+               data-x="1320" data-y="180">
+            <h3>Financiación IMAS</h3><p>Concierto / subvención al servicio</p>
+          </div>
+
+          <div class="node core" id="n-bolsa" role="button" tabindex="0" aria-controls="m-bolsa" aria-haspopup="dialog"
+               data-x="900" data-y="580">
+            <h3>Bolsa de Viviendas</h3>
+            <p>Inventario único para el servicio</p>
+          </div>
+
+          <div class="node small" id="n-propietarios" role="button" tabindex="0"
+               aria-controls="m-propietarios" aria-haspopup="dialog"
+               data-x="460" data-y="860">
+            <h3>Propietarios directos</h3><p>Viviendas adecuadas con apoyo</p>
+          </div>
+
+          <div class="node small" id="n-inmobiliaria" role="button" tabindex="0"
+               aria-controls="m-inmobiliaria" aria-haspopup="dialog"
+               data-x="900" data-y="910">
+            <h3>Inmobiliaria social</h3><p>Captación en mercado libre</p>
+          </div>
+
+          <div class="node small" id="n-esment" role="button" tabindex="0"
+               aria-controls="m-esment" aria-haspopup="dialog"
+               data-x="1340" data-y="860">
+            <h3>Viviendas propias de Esment</h3><p>Inversión propia + Ayudas Govern Balear</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICIO -->
+  <div class="modal" id="m-servicio" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="servicio-title">
+      <header>
+        <h2 id="servicio-title">Vivir en comunidad</h2>
+        <button class="close" aria-label="Cerrar" data-close="m-servicio">×</button>
+      </header>
+      <div class="body">
+        <div class="grid">
+          <div class="card">
+            <h3>Objetivo</h3>
+            <ul>
+              <li>Facilitar <strong>vida independiente</strong> en entorno comunitario con apoyos ajustados.</li>
+              <li>Coordinar <strong>asignación de vivienda</strong> y <strong>apoyos personales</strong>.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Componentes del servicio</h3>
+            <ul>
+              <li>Valoración de necesidades y <em>matching</em> con la Bolsa.</li>
+              <li>Plan individual de apoyos (autonomía, convivencia, economía doméstica, comunidad).</li>
+              <li>Seguimiento y revisión periódica con indicadores.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Resultados esperados</h3>
+            <ul>
+              <li>Mayor estabilidad residencial y participación comunitaria.</li>
+              <li>Mejora de habilidades para la vida autónoma.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Relaciones clave</h3>
+            <ul>
+              <li>Usuarios / familias · IMAS · Bolsa de Viviendas · Propietarios e Inmobiliaria social.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOLSA -->
+  <div class="modal" id="m-bolsa" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="bolsa-title">
+      <header>
+        <h2 id="bolsa-title">Bolsa de Viviendas · Funcionamiento</h2>
+        <button class="close" aria-label="Cerrar" data-close="m-bolsa">×</button>
+      </header>
+      <div class="body">
+        <div class="grid">
+          <div class="card">
+            <h3>Qué es</h3>
+            <ul>
+              <li><strong>Inventario único</strong> de viviendas aptas para el servicio.</li>
+              <li>Incluye parque propio de Esment, inmobiliaria social y propietarios directos.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Criterios de alta</h3>
+            <ul>
+              <li>Condiciones de habitabilidad, accesibilidad y ubicación.</li>
+              <li>Régimen de uso: alquiler social / asequible, disponibilidad y garantías.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Procesos</h3>
+            <ul>
+              <li>Captación → verificación técnica → alta en bolsa.</li>
+              <li>Reserva / asignación según plan individual y compatibilidad.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Seguimiento</h3>
+            <ul>
+              <li>Indicadores de ocupación, rotación, tiempos de asignación y satisfacción.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USUARIOS -->
+  <div class="modal" id="m-usuarios" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="usuarios-title">
+      <header>
+        <h2 id="usuarios-title">Usuarios · Perfil y acceso</h2>
+        <button class="close" aria-label="Cerrar" data-close="m-usuarios">×</button>
+      </header>
+      <div class="body">
+        <div>
+          <span class="kpi">≥18 años</span>
+          <span class="kpi">Residencia en Mallorca</span>
+          <span class="kpi">Necesidad de vivienda</span>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h3>Colectivos</h3>
+            <ul>
+              <li>Discapacidad intelectual (leve–moderada) con apoyos.</li>
+              <li>Trastorno del Espectro del Autismo (TEA).</li>
+              <li>Otros perfiles compatibles con vida independiente en comunidad.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Itinerario</h3>
+            <ul>
+              <li>Solicitud/derivación → entrevista → valoración de apoyos.</li>
+              <li><em>Matching</em> con vivienda y acuerdo de convivencia.</li>
+              <li>Seguimiento y revisión del plan.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMAS -->
+  <div class="modal" id="m-imas" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="imas-title">
+      <header>
+        <h2 id="imas-title">Financiación IMAS · Relación con el servicio</h2>
+        <button class="close" aria-label="Cerrar" data-close="m-imas">×</button>
+      </header>
+      <div class="body">
+        <div class="grid">
+          <div class="card">
+            <h3>Vías de financiación</h3>
+            <ul>
+              <li>Concierto social de plazas/servicio.</li>
+              <li>Subvenciones finalistas para apoyos a la vida independiente.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Alcance</h3>
+            <ul>
+              <li>Financia parte de costes de personal de apoyo y gestión.</li>
+              <li>Condiciones y justificación según convocatoria/convenio.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Gobernanza</h3>
+            <ul>
+              <li>Seguimiento técnico-económico y evaluación de resultados.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROPIETARIOS DIRECTOS -->
+  <div class="modal" id="m-propietarios" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="propietarios-title">
+      <header>
+        <h2 id="propietarios-title">Propietarios directos · Captación y relación</h2>
+        <button class="close" aria-label="Cerrar" data-close="m-propietarios">×</button>
+      </header>
+      <div class="body">
+        <div class="grid">
+          <div class="card">
+            <h3>Captación</h3>
+            <ul>
+              <li>Convocatorias y comunicación a propietarios particulares.</li>
+              <li>Revisión técnica de la vivienda (habitabilidad, accesibilidad básica).</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Contrato</h3>
+            <ul>
+              <li>Alquiler asequible con garantías y mediación.</li>
+              <li>Duración y condiciones transparentes; seguro y fianza.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Soporte</h3>
+            <ul>
+              <li>Interlocución única, gestión de incidencias y mantenimiento pactado.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INMOBILIARIA SOCIAL -->
+  <div class="modal" id="m-inmobiliaria" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="inmobiliaria-title">
+      <header>
+        <h2 id="inmobiliaria-title">Inmobiliaria social · Función</h2>
+        <button class="close" aria-label="Cerrar" data-close="m-inmobiliaria">×</button>
+      </header>
+      <div class="body">
+        <div class="grid">
+          <div class="card">
+            <h3>Rol</h3>
+            <ul>
+              <li>Captación en mercado libre y mediación con propietarios.</li>
+              <li>Formalización de contratos y altas en la Bolsa.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Ventajas para propietarios</h3>
+            <ul>
+              <li>Pago garantizado, mediación profesional, reducción de riesgo.</li>
+              <li>Mantenimiento/acondicionamiento básico acordado.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIVIENDAS PROPIAS DE ESMENT -->
+  <div class="modal" id="m-esment" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="esment-title">
+      <header>
+        <h2 id="esment-title">Viviendas propias de Esment · Origen e integración</h2>
+        <button class="close" aria-label="Cerrar" data-close="m-esment">×</button>
+      </header>
+      <div class="body">
+        <div>
+          <span class="kpi">Recursos propios</span>
+          <span class="kpi">Donaciones</span>
+          <span class="kpi">Ayudas inversión (Govern)</span>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h3>Fuentes</h3>
+            <ul>
+              <li>Inversión directa de Esment.</li>
+              <li>Donaciones y legados finalistas.</li>
+              <li>Subvenciones de inversión para vivienda social.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Integración</h3>
+            <ul>
+              <li>Ingreso en parque propio y alta en la Bolsa.</li>
+              <li>Rentas y condiciones ajustadas a vivienda asequible.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Gestión</h3>
+            <ul>
+              <li>Mantenimiento preventivo/correctivo; adecuaciones razonables.</li>
+              <li>Gestión documental y seguros.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Relación con el servicio y el territorio</h3>
+            <ul>
+              <li><em>Matching</em> con perfiles y plan de apoyos.</li>
+              <li><strong>Distribuidas por la comunidad</strong> para favorecer la inclusión y la vida en barrios reales, como <strong>complemento</strong> a las viviendas de propietarios directos y a las viviendas captadas por la inmobiliaria social.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BASE_W = 1800, BASE_H = 1000;
+    function fitStage(){
+      const canvas = document.getElementById('canvas');
+      const stage  = document.getElementById('stage');
+      const cw = canvas.clientWidth, ch = canvas.clientHeight;
+      const scale = Math.min(cw / BASE_W, ch / BASE_H);
+      const ox = (cw - BASE_W * scale) / 2;
+      const oy = (ch - BASE_H * scale) / 2;
+      stage.style.transform = `translate(${ox}px, ${oy}px) scale(${scale})`;
+    }
+
+    function placeNodes(){
+      document.querySelectorAll('.stage .node').forEach(n=>{
+        const x = parseFloat(n.dataset.x)||0, y = parseFloat(n.dataset.y)||0;
+        n.style.left = x + 'px'; n.style.top = y + 'px';
+      });
+    }
+
+    const CONNECTIONS = [
+      ['n-bolsa','n-servicio'],
+      ['n-usuarios','n-servicio'],
+      ['n-imas','n-servicio'],
+      ['n-propietarios','n-bolsa'],
+      ['n-inmobiliaria','n-bolsa'],
+      ['n-esment','n-bolsa'],
+    ];
+    function getXY(id){
+      const el = document.getElementById(id);
+      return { x: parseFloat(el.dataset.x), y: parseFloat(el.dataset.y) };
+    }
+    function drawLine(svg, from, to, opts={}){
+      const dx = to.x - from.x, dy = to.y - from.y;
+      const d = Math.hypot(dx,dy) || 1;
+      const shrink = 28;
+      const fx = from.x + dx*(shrink/d), fy = from.y + dy*(shrink/d);
+      const tx = to.x   - dx*(shrink/d), ty = to.y   - dy*(shrink/d);
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', fx); line.setAttribute('y1', fy);
+      line.setAttribute('x2', tx); line.setAttribute('y2', ty);
+      line.setAttribute('stroke', opts.color || '#f39c12');
+      line.setAttribute('stroke-width', opts.width || 4);
+      line.setAttribute('stroke-linecap','round');
+      svg.appendChild(line);
+    }
+    function drawAllLines(){
+      const svg = document.getElementById('diagram');
+      [...svg.querySelectorAll('line')].forEach(el=>el.remove());
+      CONNECTIONS.forEach(([a,b])=> drawLine(svg, getXY(a), getXY(b), {width:4}) );
+    }
+
+    function setupModal(triggerId, modalId){
+      const modal = document.getElementById(modalId);
+      const trigger = document.getElementById(triggerId);
+      const closeBtn = modal.querySelector('[data-close="'+modalId+'"]');
+      function open(){ modal.setAttribute('open',''); modal.removeAttribute('aria-hidden'); if(closeBtn) closeBtn.focus(); document.addEventListener('keydown', onEsc); }
+      function close(){ modal.removeAttribute('open'); modal.setAttribute('aria-hidden','true'); trigger.focus(); document.removeEventListener('keydown', onEsc); }
+      function onEsc(e){ if(e.key==='Escape') close(); }
+      trigger.addEventListener('click', open);
+      trigger.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); }});
+      if(closeBtn) closeBtn.addEventListener('click', close);
+      modal.addEventListener('click', e=>{ if(e.target===modal) close(); });
+    }
+
+    function render(){
+      placeNodes();
+      drawAllLines();
+      fitStage();
+    }
+    window.addEventListener('load', ()=>{
+      render();
+      setupModal('n-servicio','m-servicio');
+      setupModal('n-bolsa','m-bolsa');
+      setupModal('n-usuarios','m-usuarios');
+      setupModal('n-imas','m-imas');
+      setupModal('n-propietarios','m-propietarios');
+      setupModal('n-inmobiliaria','m-inmobiliaria');
+      setupModal('n-esment','m-esment');
+    });
+    window.addEventListener('resize', fitStage);
+  </script>
+</body>
+</html>
