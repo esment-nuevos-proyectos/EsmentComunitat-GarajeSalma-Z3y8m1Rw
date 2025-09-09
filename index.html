@@ -1,33 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Garaje Salma · Business Model Canvas (Tecnología)</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Garaje Salma · Presentación</title>
 
-  <!-- Evitar indexación en buscadores -->
-  <meta name="robots" content="noindex, nofollow, noarchive, noimageindex" />
-  <meta name="googlebot" content="noindex, nofollow, noarchive, noimageindex" />
+  <!-- Evitar indexación -->
+  <meta name="robots" content="noindex, nofollow, noarchive, noimageindex"/>
+  <meta name="googlebot" content="noindex, nofollow, noarchive, noimageindex"/>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+
   <style>
-    :root{ --bg:#f3f3f1; --ink:#1f2a2e; --muted:#66737a; --brand:#FFD84D; --stroke:#cfcfc9; --card:#ffffff; --shadow:0 6px 18px rgba(0,0,0,.06); }
+    /* ============================================================
+       BASE
+       ============================================================ */
+    :root{
+      --bg:#f5f6f7;
+      --ink:#1f2a2e;
+      --muted:#6b7280;
+      --brand:#f39c12;        /* Amarillo Esment */
+      --stroke:#e5e7eb;
+      --card:#ffffff;
+      --shadow:0 8px 26px rgba(0,0,0,.08);
+
+      /* Variables del CANVAS original */
+      --canvas-bg:#ffffff;
+      --canvas-stroke:#cfcfc9;
+      --canvas-brand:#FFD84D; /* Amarillo del canvas original */
+      --canvas-shadow:0 6px 18px rgba(0,0,0,.06);
+    }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.45 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;}
+    body{
+      margin:0; background:var(--bg); color:var(--ink);
+      font:16px/1.65 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
 
-    #app-root + #app-root{display:none !important}
+    /* ============================================================
+       CABECERA · TÍTULO + PROPÓSITO + CANVAS FULL-BLEED
+       ============================================================ */
+    header.hero-canvas{
+      position:relative; width:100vw; min-height:100vh; margin:0; padding:0 0 12px 0;
+      display:flex; flex-direction:column; justify-content:flex-start; align-items:stretch;
+      background:#fff;
+    }
+    .hero-title{
+      width:calc(100% - 48px); margin:18px auto 0; padding:18px 0 6px;
+      text-align:center;
+    }
+    .hero-title h1{
+      margin:0 0 4px; font-size:40px; line-height:1.15;
+    }
+    .hero-title .sub{color:var(--muted); margin:0}
+    /* Tira de propósito (estilo canvas) */
+    .purpose-strip{
+      background:#111; color:#fff; border:3px solid var(--canvas-brand); border-radius:12px;
+      padding:14px 18px; font-weight:700; text-align:center; box-shadow:var(--canvas-shadow);
+      width:calc(100% - 48px); margin:14px auto 18px;
+    }
+    .purpose-strip small{
+      display:block; font-weight:600; letter-spacing:.4px; opacity:.9; text-transform:uppercase; margin-bottom:4px
+    }
 
-    header{position:sticky; top:0; z-index:1; background:linear-gradient(180deg, rgba(243,243,241,.96), rgba(243,243,241,.86)); border-bottom:1px solid var(--stroke); padding:16px 24px}
-    header h1{font-size:28px; line-height:1.2; margin:0}
-
-    main{margin:24px auto 60px; padding:0 24px; width:100%;}
-
-    .purpose-strip{background:#111; color:#fff; border:3px solid var(--brand); border-radius:12px; padding:12px 16px; font-weight:700; text-align:center; box-shadow:var(--shadow); margin-bottom:20px}
-    .purpose-strip small{display:block; font-weight:600; letter-spacing:.3px; opacity:.9; text-transform:uppercase}
-
+    /* =================== CANVAS (exacto) =================== */
     .bmc-grid{
       display:grid; gap:14px;
       grid-template-columns: repeat(5, 1fr);
@@ -36,15 +75,14 @@
         "partners activities value relationships segments"
         "partners resources  value channels       segments"
         "costs    costs     costs revenues       revenues";
-      border:2px solid var(--stroke); padding:14px; background:var(--card);
-      box-shadow:var(--shadow); border-radius:12px; width:100%;
+      border:2px solid var(--canvas-stroke); padding:14px; background:var(--canvas-bg);
+      box-shadow:var(--canvas-shadow); border-radius:12px;
+      width:calc(100% - 48px); margin:0 auto 24px;
     }
-
-    .cell{border:2px solid var(--stroke); border-radius:10px; background:#fff; display:flex; flex-direction:column; overflow:hidden}
-    .cell .title{padding:10px 12px; font-weight:700; color:#2d3a40; border-bottom:2px solid var(--stroke); background:linear-gradient(180deg,#faf9f3,#fff8d9)}
-    .cell .content{padding:12px 14px; overflow:auto}
-    .cell .content ul{margin:0 0 0 18px; padding:0}
-    .cell .content li{margin:8px 0}
+    .cell{border:2px solid var(--canvas-stroke); border-radius:10px; background:#fff; display:flex; flex-direction:column; overflow:hidden}
+    .cell .title{padding:10px 12px; font-weight:700; color:#2d3a40; border-bottom:2px solid var(--canvas-stroke); background:linear-gradient(180deg,#faf9f3,#fff8d9)}
+    .cell .content{padding:14px 16px; overflow:auto; font-size:15px}
+    .cell .content p{margin:0 0 10px 0}
 
     .partners{grid-area:partners}
     .activities{grid-area:activities}
@@ -57,170 +95,291 @@
     .revenues{grid-area:revenues}
 
     .value .title{background:linear-gradient(180deg,#ffe990,#ffe067); border-bottom-color:#e5d07a}
-    .value .content{font-size:17px}
+    .value .content{font-size:16px}
 
     @media (max-width: 1000px){
       .bmc-grid{grid-template-columns:1fr; grid-template-rows:auto; grid-template-areas:none}
     }
+
+    /* ============================================================
+       RELATO A ANCHO CONTROLADO + PULLQUOTES ENTRE PÁRRAFOS
+       ============================================================ */
+    .narrative{
+      width:100%; padding:44px 0 56px; background:#fff; border-top:1px solid var(--stroke);
+    }
+    .narrative-inner{
+      max-width:1200px; margin:0 auto; padding:0 32px;
+    }
+    .narrative h2{font-size:28px; margin:26px 0 10px}
+    .narrative p{margin:.25rem 0 1rem; text-align:justify}
+    .narrative .lead{color:var(--muted)}
+
+    .pullquote{
+      max-width:900px; margin:20px auto; background:#fff; border:1px solid var(--stroke);
+      border-left:8px solid var(--brand); border-radius:12px; padding:16px 20px; box-shadow:var(--shadow);
+      font-weight:700; text-align:center;
+    }
+    .pullquote em{font-style:normal}
+    .pullquote .quote{display:block; font-size:18px; line-height:1.5}
+    .pullquote .quote::before{content:"“"}
+    .pullquote .quote::after{content:"”"}
+
+    footer{padding:28px 18px 40px; text-align:center; color:var(--muted); border-top:1px solid var(--stroke); background:#fff}
   </style>
 </head>
 <body>
-  <div id="app-root">
-    <header>
-      <h1>Business Model Canvas · Garaje Salma (Tecnología Social)</h1>
-    </header>
 
-    <main aria-live="polite">
-      <div class="purpose-strip">
-        <small>Propósito</small>
-        Un laboratorio de innovación social y comunitaria a través de la tecnología.
-      </div>
+  <!-- ============================================================
+       CABECERA: TÍTULO + PROPÓSITO + CANVAS A PANTALLA COMPLETA
+       ============================================================ -->
+  <header class="hero-canvas" role="banner" aria-label="Garaje Salma · Canvas">
+    <div class="hero-title">
+      <h1>Garaje Salma</h1>
+      <p class="sub">Centro tecnológico social</p>
+    </div>
 
-      <section class="bmc-grid" role="grid" aria-label="Lienzo Business Model Canvas (Tecnología)">
-        <!-- SOCIOS CLAVE -->
-        <section class="cell partners" role="region" aria-labelledby="t-partners">
-          <div id="t-partners" class="title">Socios Clave</div>
-          <div class="content">
-            <ul>
-              <li><strong>Ayuntamiento de Palma</strong>, Consell de Mallorca y Govern Balear.</li>
-              <li>Empresas tecnológicas (IoT, domótica, robótica, software, diseño de producto).</li>
-              <li>Universidades, centros de FP, institutos y laboratorios de investigación.</li>
-              <li>Startups y makers locales/internacionales (innovación abierta).</li>
-              <li>Entidades del tercer sector y redes de innovación social.</li>
-              <li>Agentes culturales y comunitarios (casals de barri, AMPAs, colectivos artísticos).</li>
-              <li>Plataformas y programas europeos (Erasmus+, Horizon Europe).</li>
-            </ul>
-          </div>
-        </section>
+    <div class="purpose-strip" aria-label="Propósito">
+      <small>Propósito</small>
+      Dar sentido a la tecnología para transformar vidas, reducir brechas y construir comunidad.
+    </div>
 
-        <!-- ACTIVIDADES CLAVE -->
-        <section class="cell activities" role="region" aria-labelledby="t-activities">
-          <div id="t-activities" class="title">Actividades Clave</div>
-          <div class="content">
-            <ul>
-              <li><strong>Prototipado y fabricación digital</strong>: impresión 3D, corte láser, diseño CAD.</li>
-              <li><strong>Sensorización e IoT</strong> para hogar, barrio y puestos de trabajo.</li>
-              <li><strong>IA social</strong>: asistentes comunitarios, análisis de necesidades, accesibilidad (subtitulado/voz).</li>
-              <li><strong>Formación tecnológica</strong> (niños, jóvenes y adultos): maker, robótica, domótica, STEAM.</li>
-              <li><strong>Showroom demostrativo</strong>: hogar accesible, oficina inclusiva, barrio inteligente.</li>
-              <li><strong>Consultoría tecnológica y de accesibilidad</strong> a empresas y administraciones.</li>
-              <li>Investigación aplicada con universidades y startups.</li>
-              <li>Procesos de escucha comunitaria y programación cultural participativa.</li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- RECURSOS CLAVE -->
-        <section class="cell resources" role="region" aria-labelledby="t-resources">
-          <div id="t-resources" class="title">Recursos Clave</div>
-          <div class="content">
-            <ul>
-              <li>Infraestructura: impresoras 3D, kits IoT y sensores, domótica, robótica, software CAD.</li>
-              <li>Plataformas digitales e <strong>IA social</strong> (bots, paneles de datos comunitarios).</li>
-              <li>Equipo humano: makers, técnicos, formadores, consultores de accesibilidad, dinamizadores.</li>
-              <li>Espacio Garaje Salma: laboratorio, taller, showroom y bar social.</li>
-              <li>Marca y confianza Esment; red institucional, educativa y cultural.</li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- PROPUESTA DE VALOR -->
-        <section class="cell value" role="region" aria-labelledby="t-value">
-          <div id="t-value" class="title">Propuesta de Valor</div>
-          <div class="content">
-            <ul>
-              <li><strong>Tecnología social al servicio de la comunidad</strong>: soluciones reales creadas con y para las personas.</li>
-              <li><strong>Productos y apoyos inclusivos</strong> (ayudas técnicas, adaptaciones de hogar y trabajo) hechos con <strong>impresión 3D</strong> y fablab.</li>
-              <li><strong>Sensorización + IA social</strong> para convertir datos en decisiones y apoyos personalizados.</li>
-              <li><strong>Formación tecnológica</strong> intergeneracional: competencias digitales y maker.</li>
-              <li><strong>Showroom vivo</strong> que demuestra casas, oficinas y barrios inclusivos.</li>
-              <li><strong>Innovación abierta</strong> con universidades, startups y vecinos.</li>
-              <li><strong>Bar social y cultural</strong> como espacio de encuentro con precios populares.</li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- RELACIÓN CON CLIENTES -->
-        <section class="cell relationships" role="region" aria-labelledby="t-relationships">
-          <div id="t-relationships" class="title">Relación con Clientes</div>
-          <div class="content">
-            <ul>
-              <li><strong>Co-creación</strong> y acompañamiento técnico en soluciones tecnológicas.</li>
-              <li><strong>Relación educativa</strong> basada en aprender haciendo (talleres y retos).</li>
-              <li><strong>Relación profesional</strong> con empresas y administraciones (proyectos, SLAs).</li>
-              <li><strong>Relación cultural y comunitaria</strong> (eventos, arte y datos del barrio en abierto).</li>
-              <li>Transparencia y confianza: paneles de datos y resultados visibles.</li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- SEGMENTOS DE CLIENTES -->
-        <section class="cell segments" role="region" aria-labelledby="t-segments">
-          <div id="t-segments" class="title">Segmentos de Clientes</div>
-          <div class="content">
-            <ul>
-              <li>Personas con discapacidad y mayores; familias cuidadoras.</li>
-              <li>Niños y jóvenes (escuelas, institutos, FP).</li>
-              <li>Empresas (innovación, accesibilidad tecnológica, RSC).</li>
-              <li>Administraciones públicas (Ayuntamiento de Palma, Consell, Govern).</li>
-              <li>Comunidad del barrio y entidades sociales/culturales.</li>
-              <li>Universidades, centros de investigación y startups.</li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- CANALES -->
-        <section class="cell channels" role="region" aria-labelledby="t-channels">
-          <div id="t-channels" class="title">Canales</div>
-          <div class="content">
-            <ul>
-              <li>Espacio Garaje Salma (laboratorio, showroom y bar social).</li>
-              <li>Talleres y programas en centros educativos y FP.</li>
-              <li>Consultoría y proyectos llave en mano para empresas y administraciones.</li>
-              <li>Plataformas digitales e <strong>IA social</strong> (apps, bots, panel de datos comunitarios).</li>
-              <li>Web y redes de Esment; eventos culturales y ferias tecnológicas.</li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- COSTES -->
-        <section class="cell costs" role="region" aria-labelledby="t-costs">
-          <div id="t-costs" class="title">Estructura de Costes</div>
-          <div class="content">
-            <ul>
-              <li>Equipamiento y mantenimiento tecnológico (3D, IoT, robots, software, cloud).</li>
-              <li>Personal (técnicos, formadores, consultores, dinamizadores, hostelería).</li>
-              <li>Espacio físico y suministros (laboratorio, showroom, bar).</li>
-              <li>Materiales para talleres, prototipado y demostraciones.</li>
-              <li>Participación comunitaria, comunicación y eventos.</li>
-              <li>Investigación y desarrollo (pilotos, pruebas con usuarios).</li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- INGRESOS -->
-        <section class="cell revenues" role="region" aria-labelledby="t-revenues">
-          <div id="t-revenues" class="title">Fuentes de Ingresos</div>
-          <div class="content">
-            <ul>
-              <li>Venta de <strong>productos inclusivos</strong> y kits (ayudas 3D, domótica, sensorización).</li>
-              <li>Servicios de <strong>consultoría tecnológica</strong> y de accesibilidad a empresas/AA.PP.</li>
-              <li>Formación (escuelas, FP, empresas) y bootcamps maker.</li>
-              <li>Subvenciones y convenios (innovación, juventud, accesibilidad, cultura).</li>
-              <li>Ingresos del <strong>bar social</strong> y de eventos culturales/tecnológicos.</li>
-              <li>Proyectos europeos y colaboraciones con universidades/startups.</li>
-            </ul>
-          </div>
-        </section>
+    <!-- Canvas con Propuesta de Valor simplificada en 4 líneas -->
+    <section class="bmc-grid" role="grid" aria-label="Canvas Social de Garaje Salma">
+      <!-- SOCIOS CLAVE -->
+      <section class="cell partners" role="region">
+        <div class="title">Socios Clave</div>
+        <div class="content">
+          <p>Instituciones y administraciones de innovación social.</p>
+          <p>Empresas tecnológicas (dispositivos, conectividad, plataformas, IA).</p>
+          <p>Colegios, institutos y centros de formación profesional.</p>
+          <p>Universidades y grupos de investigación aplicada.</p>
+          <p>Servicios de Esment (vivienda, apoyos, empleo) como socios y clientes internos de validación.</p>
+          <p>Asociaciones vecinales, culturales y comunidad maker; redes europeas.</p>
+        </div>
       </section>
-    </main>
-  </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const apps = document.querySelectorAll('#app-root');
-      for (let i = 1; i < apps.length; i++) apps[i].remove();
-    });
-  </script>
+      <!-- ACTIVIDADES CLAVE -->
+      <section class="cell activities" role="region">
+        <div class="title">Actividades Clave</div>
+        <div class="content">
+          <p>Prototipado y pruebas con personas y contextos reales.</p>
+          <p>Teleasistencia avanzada: kits de hogar, lógica proactiva, coordinación con centros 24×7.</p>
+          <p>Co-diseño de ayudas técnicas (impresión 3D), interfaces accesibles y sensórica doméstica/cívica.</p>
+          <p>Itinerarios formativos (IA, diseño digital, robótica, sensórica) para escuelas, familias y profesionales.</p>
+          <p>Investigación y mejora de procesos sociales (interoperabilidad, indicadores, ética y privacidad).</p>
+          <p>Documentación abierta y transferencia a servicios de Esment cuando aporta valor.</p>
+        </div>
+      </section>
+
+      <!-- RECURSOS CLAVE -->
+      <section class="cell resources" role="region">
+        <div class="title">Recursos Clave</div>
+        <div class="content">
+          <p>Espacio vivo: Taller (Build), Experimentación (Measure), Aula (Learn).</p>
+          <p>Equipamiento: IA accesible, sensórica, domótica asequible e impresión 3D.</p>
+          <p>Catálogo de dispositivos: pulsadores, caídas, humo/CO/agua, movimiento/aperturas, wearables, pastilleros; pasarelas IP/LTE.</p>
+          <p>Plataforma y centros de monitorización para atención 24×7 y coordinación de apoyos.</p>
+          <p>Equipo mixto: técnica, cuidados, pedagogía, comunidad y empleo inclusivo.</p>
+          <p>Protocolos de accesibilidad, ética, privacidad y gobierno del dato; interoperabilidad social/sanitaria.</p>
+        </div>
+      </section>
+
+      <!-- PROPUESTA DE VALOR (4 líneas claras) -->
+      <section class="cell value" role="region">
+        <div class="title">Propuesta de Valor</div>
+        <div class="content">
+          <p><strong>Vida independiente y cuidados en el hogar</strong>: teleasistencia avanzada (dispositivos, centros 24×7, lógica proactiva e interoperabilidad), ayudas técnicas con impresión 3D, interfaces accesibles y sensórica doméstica para seguridad y autonomía.</p>
+          <p><strong>Aprendizaje y empleo tecnológico</strong>: formación en IA, diseño y fabricación digital, robótica y sensórica; itinerarios para escuelas, familias y profesionales; creación de puestos tecnológicos accesibles y con apoyo.</p>
+          <p><strong>Comunidad y cultura</strong>: espacios y experiencias accesibles, sensórica cívica (aire/ruido), arte y cultura como lenguajes de inclusión, programas intergeneracionales y participación barrial.</p>
+          <p><strong>Procesos sociales e innovación organizativa</strong>: investigación aplicada y consultoría para entidades del tercer sector y empresas (coordinación, datos, indicadores, adaptación inclusiva de procesos) con un enfoque de “startup social”.</p>
+        </div>
+      </section>
+
+      <!-- RELACIÓN CON CLIENTES -->
+      <section class="cell relationships" role="region">
+        <div class="title">Relación con Clientes</div>
+        <div class="content">
+          <p>Co-creación y escucha activa: empezar por “¿qué necesitas?”.</p>
+          <p>Acompañamiento cercano para adopción con sentido.</p>
+          <p>Transparencia de datos, aprendizajes y mejoras continuas.</p>
+        </div>
+      </section>
+
+      <!-- SEGMENTOS DE CLIENTES -->
+      <section class="cell segments" role="region">
+        <div class="title">Segmentos de Clientes</div>
+        <div class="content">
+          <p>Personas con discapacidad y personas mayores.</p>
+          <p>Escuelas, institutos, familias y comunidad educativa.</p>
+          <p>Administraciones públicas y entidades del tercer sector.</p>
+          <p>Vecindario y asociaciones del barrio; agentes culturales.</p>
+          <p>Servicios de Esment como clientes piloto y usuarios avanzados.</p>
+          <p>Universidades y centros de investigación aplicada.</p>
+        </div>
+      </section>
+
+      <!-- CANALES -->
+      <section class="cell channels" role="region">
+        <div class="title">Canales</div>
+        <div class="content">
+          <p>Laboratorio abierto Garaje Salma.</p>
+          <p>Talleres y programas con centros educativos y equipamientos del barrio.</p>
+          <p>Plataformas y procesos participativos accesibles.</p>
+          <p>Eventos donde conviven tecnología y cultura.</p>
+          <p>Despliegues modulares de teleasistencia avanzada conectados a centro 24×7.</p>
+        </div>
+      </section>
+
+      <!-- COSTES -->
+      <section class="cell costs" role="region">
+        <div class="title">Estructura de Costes</div>
+        <div class="content">
+          <p>Equipamiento tecnológico, conectividad y rotación de dispositivos.</p>
+          <p>Equipo interdisciplinar y empleo inclusivo con apoyos.</p>
+          <p>Operación del espacio seguro y accesible.</p>
+          <p>Licencias/plataformas, interoperabilidad y gobierno del dato.</p>
+          <p>Participación comunitaria, comunicación y cultura abierta.</p>
+        </div>
+      </section>
+
+      <!-- INGRESOS -->
+      <section class="cell revenues" role="region">
+        <div class="title">Fuentes de Ingresos</div>
+        <div class="content">
+          <p>Formación con propósito social (escuelas, familias, profesionales).</p>
+          <p>Consultoría e investigación aplicada en procesos sociales inclusivos.</p>
+          <p>Pilotos y servicios de teleasistencia avanzada con métricas de impacto.</p>
+          <p>Productos inclusivos validados y documentación reutilizable.</p>
+          <p>Subvenciones y proyectos europeos.</p>
+          <p>Bar social y programación de eventos.</p>
+        </div>
+      </section>
+    </section>
+  </header>
+
+  <!-- ============================================================
+       RELATO · ANCHO CONTROLADO, JUSTIFICADO, PULLQUOTES ENTRE PÁRRAFOS
+       ============================================================ -->
+  <section class="narrative" id="relato">
+    <div class="narrative-inner">
+      <!-- Por qué Garaje Salma -->
+      <h2>Por qué Garaje Salma</h2>
+      <p class="lead">
+        En los próximos años, el avance tecnológico y, en especial, la irrupción de la inteligencia artificial, cambiará de forma definitiva nuestra forma de vivir, trabajar y relacionarnos.
+      </p>
+      <p>
+        La tecnología promete pero demasiadas veces aparece como un fin en sí misma, desligada de las necesidades reales de las personas o de la comunidad educativa, o como un instrumento enfocado únicamente a la rentabilidad económica.
+        Garaje Salma nace en este contexto con un propósito distinto: dar sentido a la tecnología poniéndola al servicio de las personas y de la comunidad.
+      </p>
+      <div class="pullquote"><span class="quote">Tecnología con propósito: inclusión, autonomía, educación y comunidad</span></div>
+      <p>
+        No es un escaparate ni una academia de robótica, sino un laboratorio dónde experimentar, aprender y demostrar que la inteligencia artificial, la fabricación digital y la sensorización pueden ser herramientas de inclusión, autonomía y cohesión social.
+      </p>
+      <p>
+        El proyecto parte de una convicción: la tecnología puede y debe tener una dimensión social. No basta con crear soluciones técnicas, es necesario enseñar a las personas —y también a escuelas y familias— a convivir con ellas.
+        Así, Garaje Salma no solo prototipa dispositivos o programas, sino que también acompaña a la comunidad en el proceso de apropiarse de la tecnología, reduciendo la brecha digital y fortaleciendo la confianza colectiva en la innovación.
+      </p>
+
+      <!-- Un marco metodológico ágil y humano -->
+      <h2>Un marco metodológico ágil y humano</h2>
+      <p class="lead">
+        La base de Garaje Salma se inspira en el enfoque Lean Startup (Eric Ries), ampliamente reconocido en el mundo de la innovación. Su ciclo de Construir – Medir – Aprender ofrece un marco ágil que encaja de manera natural con la misión del proyecto.
+      </p>
+      <p>
+        En el taller de fabricación digital se construyen prototipos accesibles: desde utensilios adaptados impresos en 3D hasta sensores comunitarios o aplicaciones de inteligencia artificial con un uso social concreto.
+        Estos prototipos no se guardan en un cajón, sino que se ponen a prueba en la zona de experimentación, un espacio compartido donde vecinos, familias, centros educativos, empresas y usuarios pueden ensayar las soluciones y aportar su experiencia.
+      </p>
+      <div class="pullquote"><span class="quote">Construir · Medir · Aprender, con las personas en el centro</span></div>
+      <p>
+        Posteriormente, en el aula de formación, se sistematizan los aprendizajes y se transmiten a nuevos participantes, creando itinerarios formativos que abarcan desde la infancia hasta la edad adulta y a profesionales del cuidado y la educación.
+        Este ciclo convierte a Garaje Salma en un espacio vivo y dinámico: un lugar donde se construye, se prueba y se aprende de manera continua, siempre con las personas en el centro.
+      </p>
+
+      <!-- Tecnología con conciencia social -->
+      <h2>Tecnología con conciencia social</h2>
+      <p class="lead">
+        Uno de los grandes potenciales de Garaje Salma es demostrar que la inteligencia artificial puede ser una aliada de la inclusión y no una amenaza.
+      </p>
+      <p>
+        Aquí se pueden desarrollar y probar proyectos de accesibilidad digital —como lectura fácil y apoyos cognitivos—, personalización de itinerarios de aprendizaje o inclusión laboral,
+        y paneles que permiten a una comunidad interpretar datos del barrio sobre aire, ruido o convivencia.
+      </p>
+      <div class="pullquote"><span class="quote">La IA es una aliada cuando se diseña con propósito y supervisión humana</span></div>
+      <p>
+        Nuestro enfoque se concreta en cuatro líneas de valor: <em>vida independiente y cuidados en el hogar</em> (teleasistencia avanzada, ayudas 3D, interfaces accesibles, sensórica doméstica), 
+        <em>aprendizaje y empleo tecnológico</em> (formación en IA, diseño y fabricación digital, robótica, sensórica), 
+        <em>comunidad y cultura</em> (espacios accesibles, arte y programas intergeneracionales) y 
+        <em>procesos sociales e innovación organizativa</em> (investigación aplicada, consultoría e interoperabilidad al servicio del tercer sector y empresas).
+      </p>
+      <p>
+        Pero la innovación no se limita a crear herramientas. Garaje Salma tiene también la misión de enseñar a convivir con la tecnología: ayudar a niños, jóvenes, adultos y mayores a comprender cómo funciona,
+        cuáles son sus riesgos y cómo puede convertirse en un recurso útil para sus vidas. En un mundo donde la digitalización avanza sin pausa, este aprendizaje colectivo resulta tan importante como los dispositivos o programas que puedan surgir del laboratorio.
+      </p>
+
+      <!-- Un banco de pruebas para la organización -->
+      <h2>Un banco de pruebas para la organización</h2>
+      <p class="lead">
+        Garaje Salma no solo aporta valor hacia fuera, en su relación con el barrio o con la sociedad. Es también un espacio de innovación organizacional para Esment y otras entidades sociales.
+      </p>
+      <p>
+        Actúa como una especie de startup interna, un lugar donde se pueden probar nuevas metodologías de coordinación, herramientas digitales de gestión o sistemas basados en IA antes de escalarlos a toda la organización.
+      </p>
+      <div class="pullquote"><span class="quote">Probar en pequeño para escalar lo que funciona</span></div>
+      <p>
+        De este modo, cada experimento no solo tiene impacto comunitario, sino que también fortalece a las instituciones que trabajan día a día en la atención social, generando aprendizajes que se traducen en procesos más ágiles, participativos y centrados en las personas.
+      </p>
+
+      <!-- Comunidad y relaciones externas -->
+      <h2>Comunidad y relaciones externas</h2>
+      <p class="lead">
+        La relación con la comunidad es esencial. Garaje Salma se abre al barrio como un espacio de escucha, diálogo y co-creación.
+      </p>
+      <p>
+        Aquí las familias pueden participar en el diseño de soluciones, los vecinos pueden probar prototipos y los colectivos culturales pueden utilizar la tecnología como lenguaje artístico y social.
+        Además, el proyecto se convierte en un punto de encuentro con el mundo académico y empresarial. Universidades y centros de investigación encuentran en Garaje Salma un entorno real donde aplicar su conocimiento;
+        startups y empresas tecnológicas pueden validar soluciones desde una perspectiva ética y comunitaria; y las administraciones públicas tienen un socio con el que impulsar proyectos de inclusión, juventud y digitalización.
+      </p>
+      <div class="pullquote"><span class="quote">Escucha, diálogo y co-creación con el barrio</span></div>
+      <p>
+        A escala internacional, la participación en redes y programas europeos (como <em>Erasmus+</em> o <em>Horizon Europe</em>) ofrece la oportunidad de conectar con otros laboratorios de innovación social.
+      </p>
+
+      <!-- Viabilidad y sostenibilidad -->
+      <h2>Viabilidad y sostenibilidad</h2>
+      <p class="lead">
+        Para que este proyecto sea una realidad estable, Garaje Salma necesita un modelo económico viable. Su sostenibilidad se apoyará en una combinación de fuentes:
+      </p>
+      <p>
+        • Formación con propósito social, dirigida a escuelas, jóvenes, adultos y profesionales.<br/>
+        • Consultoría e investigación aplicada para entidades del tercer sector y empresas (procesos e inclusión).<br/>
+        • Servicios y pilotos de teleasistencia avanzada con métricas de impacto.<br/>
+        • Venta o licenciamiento de productos inclusivos, prototipados y validados en el propio espacio.<br/>
+        • Eventos culturales y comunitarios, que generan ingresos a través de entradas simbólicas o patrocinios.<br/>
+        • Ingresos del bar social, que refuerza el carácter comunitario y crea un flujo económico recurrente.<br/>
+        • Subvenciones y proyectos europeos, que aportan estabilidad financiera y visibilidad internacional.
+      </p>
+      <div class="pullquote"><span class="quote">Esencia no lucrativa con modelo sólido y diversificado</span></div>
+      <p>
+        De este modo, Garaje Salma puede mantener su esencia no lucrativa, pero con la solidez suficiente para ser sostenible en el tiempo.
+      </p>
+
+      <!-- Cierre -->
+      <h2>Una nueva manera de entender la tecnología</h2>
+      <p class="lead">
+        Garaje Salma es, en esencia, un centro tecnológico social. Un lugar donde la innovación se desplaza de los laboratorios cerrados y de los intereses puramente comerciales para entrar en contacto directo con la vida de las personas.
+      </p>
+      <p>
+        Aquí la tecnología se construye con propósito, se experimenta en comunidad y se convierte en un aprendizaje colectivo. No es solo un espacio para fabricar objetos o entrenar algoritmos. Es un entorno donde la sociedad aprende a convivir con la tecnología, a utilizarla de forma crítica y creativa, y a integrarla en la vida cotidiana como un recurso de inclusión, cuidado y comunidad.
+      </p>
+      <div class="pullquote"><span class="quote">Tecnología con propósito, en comunidad y como aprendizaje compartido</span></div>
+      <p>
+        Garaje Salma quiere demostrar que la innovación puede ser ética, humana y participativa. Y que, cuando se orienta de este modo, la tecnología no solo transforma procesos, sino que también transforma vidas.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Garaje Salma</p>
+  </footer>
 </body>
 </html>
