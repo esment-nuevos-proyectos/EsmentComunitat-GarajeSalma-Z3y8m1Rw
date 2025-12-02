@@ -23,16 +23,16 @@
       --c-cantera: #ff5630;    /* Rojo - Formación */
       --c-cantera-bg: #ffece6;
       
-      --c-vida: #ffab00;       /* Amarillo - Productos */
+      --c-vida: #ffab00;       /* Amarillo - Productos propios */
       --c-vida-bg: #fff7d6;
       
-      --c-lab: #0065ff;        /* Azul - Proyectos */
+      --c-lab: #0065ff;        /* Azul - Productos a medida */
       --c-lab-bg: #deebff;
       
       --c-consulting: #6554c0; /* Violeta - Consultoría */
       --c-consulting-bg: #eae6ff;
       
-      --c-espacio: #36b37e;    /* Verde - Comunidad */
+      --c-espacio: #36b37e;    /* Verde - Espacio */
       --c-espacio-bg: #e6fcff;
       
       /* Estructural */
@@ -275,19 +275,19 @@
         </button>
         
         <button class="filter-btn" onclick="filterCanvas('cantera')" style="border-color: var(--c-cantera)" data-tooltip="Formación Dual y Ocupacional (El Motor)">
-          <span class="dot" style="background:var(--c-cantera)"></span> Cantera
+          <span class="dot" style="background:var(--c-cantera)"></span> Formación
         </button>
         
         <button class="filter-btn" onclick="filterCanvas('vida')" style="border-color: var(--c-vida)" data-tooltip="Productos propios estandarizados (Venta B2C/B2B)">
-          <span class="dot" style="background:#ffab00"></span> Vida Salma
+          <span class="dot" style="background:#ffab00"></span> Productos propios
         </button>
         
         <button class="filter-btn" onclick="filterCanvas('lab')" style="border-color: var(--c-lab)" data-tooltip="Proyectos de ingeniería a medida y bajo encargo">
-          <span class="dot" style="background:var(--c-lab)"></span> Salma Lab
+          <span class="dot" style="background:var(--c-lab)"></span> Productos a medida
         </button>
         
         <button class="filter-btn" onclick="filterCanvas('consulting')" style="border-color: var(--c-consulting)" data-tooltip="Servicios estratégicos a entidades y empresas">
-          <span class="dot" style="background:var(--c-consulting)"></span> Consulting
+          <span class="dot" style="background:var(--c-consulting)"></span> Consultoría
         </button>
         
         <button class="filter-btn" onclick="filterCanvas('espacio')" style="border-color: var(--c-espacio)" data-tooltip="Talleres abiertos, eventos y alquiler de recursos">
@@ -308,28 +308,28 @@
           <div class="card" data-cats="cantera">
             <strong>Red Educativa y Laboral</strong>
             Convenios con Escuelas FP, SOIB y Servicios de Empleo.
-            <div class="tags"><span class="tag cantera">Cantera</span></div>
+            <div class="tags"><span class="tag cantera">Formación</span></div>
           </div>
           
           <!-- Lab & Vida -->
           <div class="card" data-cats="lab vida">
             <strong>Ortopedias Locales</strong>
-            Partners necesarios para la licencia de fabricante (Lab) y canales de distribución (Vida).
-            <div class="tags"><span class="tag lab">Lab</span><span class="tag vida">Vida</span></div>
+            Partners necesarios para la licencia de fabricante (Medida) y canales de distribución (Propios).
+            <div class="tags"><span class="tag lab">Productos a medida</span><span class="tag vida">Productos propios</span></div>
           </div>
 
           <!-- Lab & Espacio -->
           <div class="card" data-cats="lab espacio consulting">
             <strong>Partners Tecnológicos</strong>
             Universidades, Grupos de investigación y empresas tech para I+D conjunto.
-            <div class="tags"><span class="tag lab">Lab</span><span class="tag espacio">Espacio</span><span class="tag consulting">Consulting</span></div>
+            <div class="tags"><span class="tag lab">Productos a medida</span><span class="tag espacio">Espacio</span><span class="tag consulting">Consultoría</span></div>
           </div>
 
           <!-- Consulting -->
           <div class="card" data-cats="consulting">
             <strong>Red 3º Sector</strong>
             Alianzas con ONGs para licitaciones conjuntas.
-            <div class="tags"><span class="tag consulting">Consulting</span></div>
+            <div class="tags"><span class="tag consulting">Consultoría</span></div>
           </div>
 
           <!-- Espacio -->
@@ -349,21 +349,21 @@
           <div class="card" data-cats="cantera">
             <strong>"Aprender Haciendo"</strong>
             Formación práctica en taller real con encargos reales.
-            <div class="tags"><span class="tag cantera">Cantera</span></div>
+            <div class="tags"><span class="tag cantera">Formación</span></div>
           </div>
 
           <!-- Vida -->
           <div class="card" data-cats="vida cantera">
             <strong>I+D+i de Producto</strong>
             Diseño y prototipado de nuevas colecciones por hornadas.
-            <div class="tags"><span class="tag vida">Vida</span><span class="tag cantera">Cantera</span></div>
+            <div class="tags"><span class="tag vida">Productos propios</span><span class="tag cantera">Formación</span></div>
           </div>
 
           <!-- Lab -->
           <div class="card" data-cats="lab">
             <strong>Ingeniería Inversa</strong>
             Escaneo 3D y adaptación personalizada.
-            <div class="tags"><span class="tag lab">Lab</span></div>
+            <div class="tags"><span class="tag lab">Productos a medida</span></div>
           </div>
 
           <!-- Espacio -->
@@ -377,7 +377,7 @@
           <div class="card" data-cats="consulting">
             <strong>Auditorías</strong>
             Análisis de accesibilidad y procesos digitales.
-            <div class="tags"><span class="tag consulting">Consulting</span></div>
+            <div class="tags"><span class="tag consulting">Consultoría</span></div>
           </div>
         </div>
       </div>
@@ -390,21 +390,21 @@
           <div class="card" data-cats="cantera vida lab espacio">
             <strong>El Taller (Hardware)</strong>
             Granja de impresoras 3D, cortadoras láser y electrónica.
-            <div class="tags"><span class="tag cantera">Cantera</span><span class="tag vida">Vida</span><span class="tag lab">Lab</span><span class="tag espacio">Espacio</span></div>
+            <div class="tags"><span class="tag cantera">Formación</span><span class="tag vida">Productos propios</span><span class="tag lab">Productos a medida</span><span class="tag espacio">Espacio</span></div>
           </div>
 
           <!-- Cantera -->
           <div class="card" data-cats="cantera consulting">
             <strong>Equipo Humano</strong>
             Técnicos Mentores y Alumnos (fuerza productiva).
-            <div class="tags"><span class="tag cantera">Cantera</span><span class="tag consulting">Consulting</span></div>
+            <div class="tags"><span class="tag cantera">Formación</span><span class="tag consulting">Consultoría</span></div>
           </div>
 
           <!-- Consulting/Lab -->
           <div class="card" data-cats="consulting lab">
             <strong>Know-How</strong>
             Metodología propia de accesibilidad y diseño social.
-            <div class="tags"><span class="tag consulting">Consulting</span><span class="tag lab">Lab</span></div>
+            <div class="tags"><span class="tag consulting">Consultoría</span><span class="tag lab">Productos a medida</span></div>
           </div>
 
           <!-- Espacio -->
@@ -424,28 +424,28 @@
           <div class="card" data-cats="cantera">
             <strong>Oportunidad Real</strong>
             Inserción sociolaboral mediante tecnología puntera y responsabilidad.
-            <div class="tags"><span class="tag cantera">Cantera</span></div>
+            <div class="tags"><span class="tag cantera">Formación</span></div>
           </div>
 
           <!-- Vida -->
           <div class="card" data-cats="vida">
             <strong>Tecnología "Buena Vida"</strong>
             Objetos bellos, funcionales y no estigmatizantes para el hogar.
-            <div class="tags"><span class="tag vida">Vida</span></div>
+            <div class="tags"><span class="tag vida">Productos propios</span></div>
           </div>
 
           <!-- Lab -->
           <div class="card" data-cats="lab">
             <strong>Empatía Técnica</strong>
             Ingeniería para resolver necesidades únicas o corporativas.
-            <div class="tags"><span class="tag lab">Lab</span></div>
+            <div class="tags"><span class="tag lab">Productos a medida</span></div>
           </div>
 
           <!-- Consulting -->
           <div class="card" data-cats="consulting">
             <strong>Transformación con Valores</strong>
             Digitalización e IA poniendo a las personas en el centro.
-            <div class="tags"><span class="tag consulting">Consulting</span></div>
+            <div class="tags"><span class="tag consulting">Consultoría</span></div>
           </div>
 
           <!-- Espacio -->
@@ -465,28 +465,28 @@
           <div class="card" data-cats="lab">
             <strong>Co-creación</strong>
             Diseño participativo mano a mano con el usuario final.
-            <div class="tags"><span class="tag lab">Lab</span></div>
+            <div class="tags"><span class="tag lab">Productos a medida</span></div>
           </div>
 
           <!-- Vida -->
           <div class="card" data-cats="vida">
             <strong>Marca Ética</strong>
             Relación basada en valores, diseño y sostenibilidad.
-            <div class="tags"><span class="tag vida">Vida</span></div>
+            <div class="tags"><span class="tag vida">Productos propios</span></div>
           </div>
 
           <!-- Espacio / Cantera -->
           <div class="card" data-cats="espacio cantera">
             <strong>Pertenencia</strong>
             Creación de comunidad, club maker y orgullo de alumno.
-            <div class="tags"><span class="tag espacio">Espacio</span><span class="tag cantera">Cantera</span></div>
+            <div class="tags"><span class="tag espacio">Espacio</span><span class="tag cantera">Formación</span></div>
           </div>
 
           <!-- Consulting -->
           <div class="card" data-cats="consulting">
             <strong>Partner Experto</strong>
             Confianza profesional B2B a largo plazo.
-            <div class="tags"><span class="tag consulting">Consulting</span></div>
+            <div class="tags"><span class="tag consulting">Consultoría</span></div>
           </div>
         </div>
       </div>
@@ -499,35 +499,35 @@
           <div class="card" data-cats="vida">
             <strong>Tienda Online</strong>
             E-commerce para venta directa B2C de colecciones.
-            <div class="tags"><span class="tag vida">Vida</span></div>
+            <div class="tags"><span class="tag vida">Productos propios</span></div>
           </div>
 
           <!-- Vida / Espacio -->
           <div class="card" data-cats="vida espacio">
             <strong>Garaje Físico (Showroom)</strong>
             Espacio de venta, formación y punto de recogida.
-            <div class="tags"><span class="tag vida">Vida</span><span class="tag espacio">Espacio</span></div>
+            <div class="tags"><span class="tag vida">Productos propios</span><span class="tag espacio">Espacio</span></div>
           </div>
 
           <!-- Lab -->
           <div class="card" data-cats="lab">
-            <strong>Derivación Interna</strong>
+            <strong>Derivación Interna Esment</strong>
             Flujo desde otros departamentos de Esment y Servicios Sociales.
-            <div class="tags"><span class="tag lab">Lab</span></div>
+            <div class="tags"><span class="tag lab">Productos a medida</span></div>
           </div>
           
           <!-- Cantera -->
           <div class="card" data-cats="cantera">
             <strong>Red de Orientación</strong>
             Contacto directo con tutores de centros educativos.
-            <div class="tags"><span class="tag cantera">Cantera</span></div>
+            <div class="tags"><span class="tag cantera">Formación</span></div>
           </div>
 
           <!-- Consulting -->
           <div class="card" data-cats="consulting">
             <strong>Licitaciones</strong>
             Concursos públicos y eventos del sector.
-            <div class="tags"><span class="tag consulting">Consulting</span></div>
+            <div class="tags"><span class="tag consulting">Consultoría</span></div>
           </div>
         </div>
       </div>
@@ -540,35 +540,35 @@
           <div class="card" data-cats="cantera">
             <strong>Alumnos Formación Dual Adaptada</strong>
             Personas con discapacidad intelectual y TEA.
-            <div class="tags"><span class="tag cantera">Cantera</span></div>
+            <div class="tags"><span class="tag cantera">Formación</span></div>
           </div>
 
           <!-- Vida (REFINADO) -->
           <div class="card" data-cats="vida">
             <strong>Personas con Necesidades de Apoyo</strong>
             Mayores o dependientes que valoran estética y funcionalidad.
-            <div class="tags"><span class="tag vida">Vida</span></div>
+            <div class="tags"><span class="tag vida">Productos propios</span></div>
           </div>
 
           <!-- Lab -->
           <div class="card" data-cats="lab">
             <strong>Personas con Diversidad Funcional</strong>
             Necesidades de adaptación física o cognitiva (Salma Care).
-            <div class="tags"><span class="tag lab">Lab</span></div>
+            <div class="tags"><span class="tag lab">Productos a medida</span></div>
           </div>
 
           <!-- Lab / Espacio -->
           <div class="card" data-cats="lab espacio">
             <strong>Empresas</strong>
             Merchandising, Eventos corporativos y RSC.
-            <div class="tags"><span class="tag lab">Lab</span><span class="tag espacio">Espacio</span></div>
+            <div class="tags"><span class="tag lab">Productos a medida</span><span class="tag espacio">Espacio</span></div>
           </div>
 
           <!-- Consulting -->
           <div class="card" data-cats="consulting">
             <strong>Entidades Sociales</strong>
             ONGs, Residencias y Fundaciones.
-            <div class="tags"><span class="tag consulting">Consulting</span></div>
+            <div class="tags"><span class="tag consulting">Consultoría</span></div>
           </div>
 
           <!-- Espacio -->
@@ -587,17 +587,17 @@
           <div class="card" data-cats="cantera" style="flex: 1 1 45%">
             <strong>Personal Mentor</strong>
             Nóminas equipo técnico y docente.
-            <div class="tags"><span class="tag cantera">Cantera</span></div>
+            <div class="tags"><span class="tag cantera">Formación</span></div>
           </div>
           <div class="card" data-cats="cantera vida lab espacio" style="flex: 1 1 45%">
             <strong>Amortización</strong>
             Maquinaria e instalaciones.
-            <div class="tags"><span class="tag cantera">Cantera</span><span class="tag vida">Vida</span><span class="tag lab">Lab</span></div>
+            <div class="tags"><span class="tag cantera">Formación</span><span class="tag vida">Productos propios</span><span class="tag lab">Productos a medida</span></div>
           </div>
           <div class="card" data-cats="vida lab" style="flex: 1 1 45%">
             <strong>Materiales</strong>
             Filamentos y electrónica.
-            <div class="tags"><span class="tag vida">Vida</span><span class="tag lab">Lab</span></div>
+            <div class="tags"><span class="tag vida">Productos propios</span><span class="tag lab">Productos a medida</span></div>
           </div>
            <div class="card" data-cats="espacio" style="flex: 1 1 45%">
             <strong>Suministros</strong>
@@ -607,7 +607,7 @@
           <div class="card" data-cats="consulting" style="flex: 1 1 45%">
             <strong>Hora Consultor</strong>
             Coste intelectual y desplazamientos.
-            <div class="tags"><span class="tag consulting">Consulting</span></div>
+            <div class="tags"><span class="tag consulting">Consultoría</span></div>
           </div>
         </div>
       </div>
@@ -619,17 +619,17 @@
           <div class="card" data-cats="cantera" style="flex: 1 1 45%">
             <strong>Subvenciones</strong>
             Becas y conciertos educativos.
-            <div class="tags"><span class="tag cantera">Cantera</span></div>
+            <div class="tags"><span class="tag cantera">Formación</span></div>
           </div>
           <div class="card" data-cats="vida" style="flex: 1 1 45%">
             <strong>Venta Producto</strong>
             Margen comercial (PVP).
-            <div class="tags"><span class="tag vida">Vida</span></div>
+            <div class="tags"><span class="tag vida">Productos propios</span></div>
           </div>
           <div class="card" data-cats="lab consulting" style="flex: 1 1 45%">
             <strong>Servicios (Horas)</strong>
             Facturación por proyecto.
-            <div class="tags"><span class="tag lab">Lab</span><span class="tag consulting">Consulting</span></div>
+            <div class="tags"><span class="tag lab">Productos a medida</span><span class="tag consulting">Consultoría</span></div>
           </div>
           <div class="card" data-cats="espacio" style="flex: 1 1 45%">
             <strong>Cuotas y Alquiler</strong>
