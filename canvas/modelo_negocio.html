@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Garaje Salma · Business Model Canvas v3</title>
+  <title>Garaje Salma · Business Model Canvas (Multifiltro)</title>
 
   <meta name="robots" content="noindex, nofollow"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -12,27 +12,31 @@
 
   <style>
     /* ============================================================
-       VARIABLES DE COLOR (IDENTIDAD VISUAL)
+       VARIABLES DE COLOR (NUEVA NOMENCLATURA)
        ============================================================ */
     :root {
       --bg: #f4f5f7;
       --ink: #172b4d;
       --muted: #5e6c84;
       
-      /* Colores de las Líneas de Negocio (Tags) */
-      --c-cantera: #ff5630;    /* Rojo - Formación */
-      --c-cantera-bg: #ffece6;
+      /* 1. FORMACIÓN (Antes Cantera) - Rojo */
+      --c-formacion: #ff5630;    
+      --c-formacion-bg: #ffece6;
       
-      --c-vida: #ffab00;       /* Amarillo - Productos propios */
-      --c-vida-bg: #fff7d6;
+      /* 2. PRODUCTOS PROPIOS (Antes Vida) - Amarillo */
+      --c-propios: #ffab00;       
+      --c-propios-bg: #fff7d6;
       
-      --c-lab: #0065ff;        /* Azul - Productos a medida */
-      --c-lab-bg: #deebff;
+      /* 3. PRODUCTOS A MEDIDA (Antes Lab) - Azul */
+      --c-medida: #0065ff;        
+      --c-medida-bg: #deebff;
       
-      --c-consulting: #6554c0; /* Violeta - Consultoría */
-      --c-consulting-bg: #eae6ff;
+      /* 4. CONSULTORÍA (Antes Consulting) - Violeta */
+      --c-consultoria: #6554c0; 
+      --c-consultoria-bg: #eae6ff;
       
-      --c-espacio: #36b37e;    /* Verde - Espacio */
+      /* 5. ESPACIO (Igual) - Verde */
+      --c-espacio: #36b37e;    
       --c-espacio-bg: #e6fcff;
       
       /* Estructural */
@@ -71,7 +75,7 @@
     .sub { color: var(--muted); margin: 0 0 24px; font-size: 1rem; }
 
     /* ============================================================
-       LEYENDA INTERACTIVA (FILTROS)
+       LEYENDA INTERACTIVA (MULTIFILTRO)
        ============================================================ */
     .legend-container {
       display: flex;
@@ -85,7 +89,7 @@
       border: 2px solid transparent;
       background: #f4f5f7;
       padding: 8px 16px;
-      border-radius: 6px;
+      border-radius: 20px;
       cursor: pointer;
       font-weight: 600;
       font-size: 0.85rem;
@@ -94,42 +98,27 @@
       align-items: center;
       gap: 8px;
       transition: all 0.2s ease;
-      position: relative; /* Para el tooltip */
+      user-select: none;
     }
 
-    .filter-btn:hover { background: #ebecf0; color: var(--ink); }
+    .filter-btn:hover { background: #ebecf0; color: var(--ink); transform: translateY(-1px); }
     
+    /* Estado activo (seleccionado) */
     .filter-btn.active {
       background: #fff;
-      border-color: currentColor;
+      border-color: currentColor; /* Toma el color del texto/borde definido inline */
       color: var(--ink);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    /* Indicadores de color en los botones */
-    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-
-    /* TOOLTIP CSS */
-    .filter-btn::after {
-      content: attr(data-tooltip);
-      position: absolute;
-      bottom: 110%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #172b4d;
+    /* Botón "Todo" especial */
+    .filter-btn[data-category="all"].active {
+      border-color: var(--ink);
+      background: var(--ink);
       color: #fff;
-      padding: 6px 10px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-      z-index: 100;
-      font-weight: 400;
     }
-    
-    .filter-btn:hover::after { opacity: 1; }
+
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
     /* ============================================================
        GRID DEL MODELO CANVAS
@@ -140,7 +129,6 @@
       display: grid;
       gap: 16px;
       grid-template-columns: repeat(5, 1fr); 
-      /* Layout clásico de Osterwalder */
       grid-template-areas:
         "partners activities value relationships segments"
         "partners resources  value channels      segments"
@@ -148,14 +136,13 @@
     }
 
     .cell {
-      background: #ebecf0; /* Fondo del hueco */
+      background: #ebecf0; 
       border-radius: 8px;
       display: flex;
       flex-direction: column;
       min-height: 240px;
     }
     
-    /* Asignación de áreas */
     .partners { grid-area: partners; }
     .activities { grid-area: activities; }
     .resources { grid-area: resources; }
@@ -197,11 +184,11 @@
       flex-direction: column;
       gap: 8px;
       transition: opacity 0.3s ease, transform 0.3s ease;
-      border-left: 3px solid transparent; /* Borde estético por defecto */
+      border-left: 3px solid transparent; 
     }
 
-    .card:hover {
-      background: #f4f5f7;
+    .card.hidden {
+      display: none;
     }
 
     .card strong {
@@ -211,11 +198,12 @@
       color: #091e42;
     }
 
-    /* Contenedor de etiquetas de colores */
+    /* Etiquetas (Tags) dentro de las tarjetas */
     .tags {
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
+      margin-top: auto; /* Empuja los tags al final si la tarjeta crece */
     }
 
     .tag {
@@ -226,12 +214,12 @@
       text-transform: uppercase;
     }
 
-    /* Estilos de etiquetas específicas */
-    .tag.cantera { background: var(--c-cantera-bg); color: var(--c-cantera); }
-    .tag.vida { background: var(--c-vida-bg); color: #b67900; } /* Ajuste contraste */
-    .tag.lab { background: var(--c-lab-bg); color: var(--c-lab); }
-    .tag.consulting { background: var(--c-consulting-bg); color: var(--c-consulting); }
-    .tag.espacio { background: var(--c-espacio-bg); color: #216e4e; } /* Ajuste contraste */
+    /* Colores de las etiquetas */
+    .tag.formacion { background: var(--c-formacion-bg); color: var(--c-formacion); }
+    .tag.propios { background: var(--c-propios-bg); color: #b67900; } 
+    .tag.medida { background: var(--c-medida-bg); color: var(--c-medida); }
+    .tag.consultoria { background: var(--c-consultoria-bg); color: var(--c-consultoria); }
+    .tag.espacio { background: var(--c-espacio-bg); color: #216e4e; } 
 
     /* ============================================================
        RESPONSIVE
@@ -258,7 +246,6 @@
         overflow-x: auto;
         padding-bottom: 10px;
       }
-      .filter-btn::after { display: none; } /* Ocultar tooltips en móvil */
     }
   </style>
 </head>
@@ -267,32 +254,37 @@
   <header>
     <div class="header-content">
       <h1>Garaje Salma</h1>
-      <p class="sub">Modelo de Negocio Multidimensional</p>
+      <p class="sub">Modelo de Negocio Integral</p>
       
       <div class="legend-container">
-        <button class="filter-btn active" onclick="filterCanvas('all')" data-tooltip="Ver el modelo completo e integrado">
+        <button class="filter-btn active" data-category="all" onclick="toggleFilter('all')">
           Todo el Proyecto
         </button>
         
-        <button class="filter-btn" onclick="filterCanvas('cantera')" style="border-color: var(--c-cantera)" data-tooltip="Formación Dual y Ocupacional (El Motor)">
-          <span class="dot" style="background:var(--c-cantera)"></span> Formación
+        <button class="filter-btn" data-category="formacion" onclick="toggleFilter('formacion')" style="color: var(--c-formacion)">
+          <span class="dot" style="background:var(--c-formacion)"></span> Formación
         </button>
         
-        <button class="filter-btn" onclick="filterCanvas('vida')" style="border-color: var(--c-vida)" data-tooltip="Productos propios estandarizados (Venta B2C/B2B)">
-          <span class="dot" style="background:#ffab00"></span> Productos propios
+        <!-- Corrección aplicada aquí: var(--c-propios) -->
+        <button class="filter-btn" data-category="propios" onclick="toggleFilter('propios')" style="color: #d97706">
+          <span class="dot" style="background:var(--c-propios)"></span> Productos propios
         </button>
         
-        <button class="filter-btn" onclick="filterCanvas('lab')" style="border-color: var(--c-lab)" data-tooltip="Proyectos de ingeniería a medida y bajo encargo">
-          <span class="dot" style="background:var(--c-lab)"></span> Productos a medida
+        <!-- Corrección aplicada aquí: var(--c-medida) -->
+        <button class="filter-btn" data-category="medida" onclick="toggleFilter('medida')" style="color: var(--c-medida)">
+          <span class="dot" style="background:var(--c-medida)"></span> Productos a medida
         </button>
         
-        <button class="filter-btn" onclick="filterCanvas('consulting')" style="border-color: var(--c-consulting)" data-tooltip="Servicios estratégicos a entidades y empresas">
-          <span class="dot" style="background:var(--c-consulting)"></span> Consultoría
+        <button class="filter-btn" data-category="consultoria" onclick="toggleFilter('consultoria')" style="color: var(--c-consultoria)">
+          <span class="dot" style="background:var(--c-consultoria)"></span> Consultoría
         </button>
         
-        <button class="filter-btn" onclick="filterCanvas('espacio')" style="border-color: var(--c-espacio)" data-tooltip="Talleres abiertos, eventos y alquiler de recursos">
+        <button class="filter-btn" data-category="espacio" onclick="toggleFilter('espacio')" style="color: var(--c-espacio)">
           <span class="dot" style="background:var(--c-espacio)"></span> Espacio
         </button>
+      </div>
+      <div style="font-size: 0.8rem; color: var(--muted); margin-top:5px;">
+        * Puedes seleccionar múltiples filtros a la vez
       </div>
     </div>
   </header>
@@ -304,35 +296,30 @@
       <div class="cell partners">
         <div class="cell-header">Socios Clave</div>
         <div class="cell-body">
-          <!-- Cantera -->
-          <div class="card" data-cats="cantera">
+          <div class="card" data-cats="formacion">
             <strong>Red Educativa y Laboral</strong>
             Convenios con Escuelas FP, SOIB y Servicios de Empleo.
-            <div class="tags"><span class="tag cantera">Formación</span></div>
+            <div class="tags"><span class="tag formacion">Formación</span></div>
           </div>
           
-          <!-- Lab & Vida -->
-          <div class="card" data-cats="lab vida">
+          <div class="card" data-cats="medida propios">
             <strong>Ortopedias Locales</strong>
-            Partners necesarios para la licencia de fabricante (Medida) y canales de distribución (Propios).
-            <div class="tags"><span class="tag lab">Productos a medida</span><span class="tag vida">Productos propios</span></div>
+            Partners para licencia de fabricante y canales de distribución.
+            <div class="tags"><span class="tag medida">Medida</span><span class="tag propios">Propios</span></div>
           </div>
 
-          <!-- Lab & Espacio -->
-          <div class="card" data-cats="lab espacio consulting">
+          <div class="card" data-cats="medida espacio consultoria">
             <strong>Partners Tecnológicos</strong>
-            Universidades, Grupos de investigación y empresas tech para I+D conjunto.
-            <div class="tags"><span class="tag lab">Productos a medida</span><span class="tag espacio">Espacio</span><span class="tag consulting">Consultoría</span></div>
+            Universidades, Grupos de investigación y empresas tech para I+D.
+            <div class="tags"><span class="tag medida">Medida</span><span class="tag espacio">Espacio</span><span class="tag consultoria">Consultoría</span></div>
           </div>
 
-          <!-- Consulting -->
-          <div class="card" data-cats="consulting">
+          <div class="card" data-cats="consultoria">
             <strong>Red 3º Sector</strong>
             Alianzas con ONGs para licitaciones conjuntas.
-            <div class="tags"><span class="tag consulting">Consultoría</span></div>
+            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
           </div>
 
-          <!-- Espacio -->
            <div class="card" data-cats="espacio">
             <strong>Tejido Vecinal</strong>
             Asociaciones de barrio para dinamización.
@@ -345,39 +332,34 @@
       <div class="cell activities">
         <div class="cell-header">Actividades Clave</div>
         <div class="cell-body">
-          <!-- Cantera -->
-          <div class="card" data-cats="cantera">
+          <div class="card" data-cats="formacion">
             <strong>"Aprender Haciendo"</strong>
-            Formación práctica en taller real con encargos reales.
-            <div class="tags"><span class="tag cantera">Formación</span></div>
+            Formación práctica en taller real.
+            <div class="tags"><span class="tag formacion">Formación</span></div>
           </div>
 
-          <!-- Vida -->
-          <div class="card" data-cats="vida cantera">
+          <div class="card" data-cats="propios formacion">
             <strong>I+D+i de Producto</strong>
             Diseño y prototipado de nuevas colecciones por hornadas.
-            <div class="tags"><span class="tag vida">Productos propios</span><span class="tag cantera">Formación</span></div>
+            <div class="tags"><span class="tag propios">Propios</span><span class="tag formacion">Formación</span></div>
           </div>
 
-          <!-- Lab -->
-          <div class="card" data-cats="lab">
+          <div class="card" data-cats="medida">
             <strong>Ingeniería Inversa</strong>
             Escaneo 3D y adaptación personalizada.
-            <div class="tags"><span class="tag lab">Productos a medida</span></div>
+            <div class="tags"><span class="tag medida">Medida</span></div>
           </div>
 
-          <!-- Espacio -->
           <div class="card" data-cats="espacio">
             <strong>Talleres Maker & Extraescolares</strong>
-            Formación no reglada (tardes/sábados) para niños y pros.
+            Formación no reglada para niños y profesionales.
             <div class="tags"><span class="tag espacio">Espacio</span></div>
           </div>
 
-          <!-- Consulting -->
-          <div class="card" data-cats="consulting">
+          <div class="card" data-cats="consultoria">
             <strong>Auditorías</strong>
             Análisis de accesibilidad y procesos digitales.
-            <div class="tags"><span class="tag consulting">Consultoría</span></div>
+            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
           </div>
         </div>
       </div>
@@ -386,28 +368,24 @@
       <div class="cell resources">
         <div class="cell-header">Recursos Clave</div>
         <div class="cell-body">
-          <!-- All -->
-          <div class="card" data-cats="cantera vida lab espacio">
+          <div class="card" data-cats="formacion propios medida espacio">
             <strong>El Taller (Hardware)</strong>
             Granja de impresoras 3D, cortadoras láser y electrónica.
-            <div class="tags"><span class="tag cantera">Formación</span><span class="tag vida">Productos propios</span><span class="tag lab">Productos a medida</span><span class="tag espacio">Espacio</span></div>
+            <div class="tags"><span class="tag formacion">Formación</span><span class="tag propios">Propios</span><span class="tag medida">Medida</span><span class="tag espacio">Espacio</span></div>
           </div>
 
-          <!-- Cantera -->
-          <div class="card" data-cats="cantera consulting">
+          <div class="card" data-cats="formacion consultoria">
             <strong>Equipo Humano</strong>
             Técnicos Mentores y Alumnos (fuerza productiva).
-            <div class="tags"><span class="tag cantera">Formación</span><span class="tag consulting">Consultoría</span></div>
+            <div class="tags"><span class="tag formacion">Formación</span><span class="tag consultoria">Consultoría</span></div>
           </div>
 
-          <!-- Consulting/Lab -->
-          <div class="card" data-cats="consulting lab">
+          <div class="card" data-cats="consultoria medida">
             <strong>Know-How</strong>
             Metodología propia de accesibilidad y diseño social.
-            <div class="tags"><span class="tag consulting">Consultoría</span><span class="tag lab">Productos a medida</span></div>
+            <div class="tags"><span class="tag consultoria">Consultoría</span><span class="tag medida">Medida</span></div>
           </div>
 
-          <!-- Espacio -->
           <div class="card" data-cats="espacio">
             <strong>El Edificio</strong>
             Aulas polivalentes y Sala Audiovisual insonorizada.
@@ -420,38 +398,33 @@
       <div class="cell value">
         <div class="cell-header">Propuesta de Valor</div>
         <div class="cell-body">
-          <!-- Cantera -->
-          <div class="card" data-cats="cantera">
+          <div class="card" data-cats="formacion">
             <strong>Oportunidad Real</strong>
-            Inserción sociolaboral mediante tecnología puntera y responsabilidad.
-            <div class="tags"><span class="tag cantera">Formación</span></div>
+            Inserción sociolaboral mediante tecnología puntera.
+            <div class="tags"><span class="tag formacion">Formación</span></div>
           </div>
 
-          <!-- Vida -->
-          <div class="card" data-cats="vida">
+          <div class="card" data-cats="propios">
             <strong>Tecnología "Buena Vida"</strong>
-            Objetos bellos, funcionales y no estigmatizantes para el hogar.
-            <div class="tags"><span class="tag vida">Productos propios</span></div>
+            Objetos bellos, funcionales y no estigmatizantes.
+            <div class="tags"><span class="tag propios">Propios</span></div>
           </div>
 
-          <!-- Lab -->
-          <div class="card" data-cats="lab">
+          <div class="card" data-cats="medida">
             <strong>Empatía Técnica</strong>
-            Ingeniería para resolver necesidades únicas o corporativas.
-            <div class="tags"><span class="tag lab">Productos a medida</span></div>
+            Ingeniería para resolver necesidades únicas.
+            <div class="tags"><span class="tag medida">Medida</span></div>
           </div>
 
-          <!-- Consulting -->
-          <div class="card" data-cats="consulting">
+          <div class="card" data-cats="consultoria">
             <strong>Transformación con Valores</strong>
             Digitalización e IA poniendo a las personas en el centro.
-            <div class="tags"><span class="tag consulting">Consultoría</span></div>
+            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
           </div>
 
-          <!-- Espacio -->
           <div class="card" data-cats="espacio">
             <strong>Hub de Barrio</strong>
-            Punto de encuentro para reducir la brecha digital y crear comunidad.
+            Punto de encuentro para reducir la brecha digital.
             <div class="tags"><span class="tag espacio">Espacio</span></div>
           </div>
         </div>
@@ -461,32 +434,28 @@
       <div class="cell relationships">
         <div class="cell-header">Relaciones</div>
         <div class="cell-body">
-          <!-- Lab -->
-          <div class="card" data-cats="lab">
+          <div class="card" data-cats="medida">
             <strong>Co-creación</strong>
             Diseño participativo mano a mano con el usuario final.
-            <div class="tags"><span class="tag lab">Productos a medida</span></div>
+            <div class="tags"><span class="tag medida">Medida</span></div>
           </div>
 
-          <!-- Vida -->
-          <div class="card" data-cats="vida">
+          <div class="card" data-cats="propios">
             <strong>Marca Ética</strong>
             Relación basada en valores, diseño y sostenibilidad.
-            <div class="tags"><span class="tag vida">Productos propios</span></div>
+            <div class="tags"><span class="tag propios">Propios</span></div>
           </div>
 
-          <!-- Espacio / Cantera -->
-          <div class="card" data-cats="espacio cantera">
+          <div class="card" data-cats="espacio formacion">
             <strong>Pertenencia</strong>
             Creación de comunidad, club maker y orgullo de alumno.
-            <div class="tags"><span class="tag espacio">Espacio</span><span class="tag cantera">Formación</span></div>
+            <div class="tags"><span class="tag espacio">Espacio</span><span class="tag formacion">Formación</span></div>
           </div>
 
-          <!-- Consulting -->
-          <div class="card" data-cats="consulting">
+          <div class="card" data-cats="consultoria">
             <strong>Partner Experto</strong>
             Confianza profesional B2B a largo plazo.
-            <div class="tags"><span class="tag consulting">Consultoría</span></div>
+            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
           </div>
         </div>
       </div>
@@ -495,39 +464,34 @@
       <div class="cell channels">
         <div class="cell-header">Canales</div>
         <div class="cell-body">
-          <!-- Vida -->
-          <div class="card" data-cats="vida">
+          <div class="card" data-cats="propios">
             <strong>Tienda Online</strong>
-            E-commerce para venta directa B2C de colecciones.
-            <div class="tags"><span class="tag vida">Productos propios</span></div>
+            E-commerce para venta directa B2C.
+            <div class="tags"><span class="tag propios">Propios</span></div>
           </div>
 
-          <!-- Vida / Espacio -->
-          <div class="card" data-cats="vida espacio">
+          <div class="card" data-cats="propios espacio">
             <strong>Garaje Físico (Showroom)</strong>
             Espacio de venta, formación y punto de recogida.
-            <div class="tags"><span class="tag vida">Productos propios</span><span class="tag espacio">Espacio</span></div>
+            <div class="tags"><span class="tag propios">Propios</span><span class="tag espacio">Espacio</span></div>
           </div>
 
-          <!-- Lab -->
-          <div class="card" data-cats="lab">
+          <div class="card" data-cats="medida">
             <strong>Derivación Interna Esment</strong>
-            Flujo desde otros departamentos de Esment y Servicios Sociales.
-            <div class="tags"><span class="tag lab">Productos a medida</span></div>
+            Flujo desde otros departamentos y Servicios Sociales.
+            <div class="tags"><span class="tag medida">Medida</span></div>
           </div>
           
-          <!-- Cantera -->
-          <div class="card" data-cats="cantera">
+          <div class="card" data-cats="formacion">
             <strong>Red de Orientación</strong>
             Contacto directo con tutores de centros educativos.
-            <div class="tags"><span class="tag cantera">Formación</span></div>
+            <div class="tags"><span class="tag formacion">Formación</span></div>
           </div>
 
-          <!-- Consulting -->
-          <div class="card" data-cats="consulting">
+          <div class="card" data-cats="consultoria">
             <strong>Licitaciones</strong>
             Concursos públicos y eventos del sector.
-            <div class="tags"><span class="tag consulting">Consultoría</span></div>
+            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
           </div>
         </div>
       </div>
@@ -536,42 +500,36 @@
       <div class="cell segments">
         <div class="cell-header">Segmentos</div>
         <div class="cell-body">
-          <!-- Cantera (NUEVO) -->
-          <div class="card" data-cats="cantera">
+          <div class="card" data-cats="formacion">
             <strong>Alumnos Formación Dual Adaptada</strong>
             Personas con discapacidad intelectual y TEA.
-            <div class="tags"><span class="tag cantera">Formación</span></div>
+            <div class="tags"><span class="tag formacion">Formación</span></div>
           </div>
 
-          <!-- Vida (REFINADO) -->
-          <div class="card" data-cats="vida">
+          <div class="card" data-cats="propios">
             <strong>Personas con Necesidades de Apoyo</strong>
             Mayores o dependientes que valoran estética y funcionalidad.
-            <div class="tags"><span class="tag vida">Productos propios</span></div>
+            <div class="tags"><span class="tag propios">Propios</span></div>
           </div>
 
-          <!-- Lab -->
-          <div class="card" data-cats="lab">
+          <div class="card" data-cats="medida">
             <strong>Personas con Diversidad Funcional</strong>
-            Necesidades de adaptación física o cognitiva (Salma Care).
-            <div class="tags"><span class="tag lab">Productos a medida</span></div>
+            Necesidades físicas o cognitivas específicas (Salma Care).
+            <div class="tags"><span class="tag medida">Medida</span></div>
           </div>
 
-          <!-- Lab / Espacio -->
-          <div class="card" data-cats="lab espacio">
+          <div class="card" data-cats="medida espacio">
             <strong>Empresas</strong>
             Merchandising, Eventos corporativos y RSC.
-            <div class="tags"><span class="tag lab">Productos a medida</span><span class="tag espacio">Espacio</span></div>
+            <div class="tags"><span class="tag medida">Medida</span><span class="tag espacio">Espacio</span></div>
           </div>
 
-          <!-- Consulting -->
-          <div class="card" data-cats="consulting">
+          <div class="card" data-cats="consultoria">
             <strong>Entidades Sociales</strong>
             ONGs, Residencias y Fundaciones.
-            <div class="tags"><span class="tag consulting">Consultoría</span></div>
+            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
           </div>
 
-          <!-- Espacio -->
           <div class="card" data-cats="espacio">
             <strong>Vecinos y Makers</strong>
             Familias del barrio y entusiastas de la tecnología.
@@ -584,30 +542,30 @@
       <div class="cell costs">
         <div class="cell-header">Estructura de Costes</div>
         <div class="cell-body" style="flex-direction: row; flex-wrap: wrap;">
-          <div class="card" data-cats="cantera" style="flex: 1 1 45%">
+          <div class="card" data-cats="formacion" style="flex: 1 1 45%">
             <strong>Personal Mentor</strong>
-            Nóminas equipo técnico y docente.
-            <div class="tags"><span class="tag cantera">Formación</span></div>
+            Nóminas equipo técnico.
+            <div class="tags"><span class="tag formacion">Formación</span></div>
           </div>
-          <div class="card" data-cats="cantera vida lab espacio" style="flex: 1 1 45%">
+          <div class="card" data-cats="formacion propios medida espacio" style="flex: 1 1 45%">
             <strong>Amortización</strong>
             Maquinaria e instalaciones.
-            <div class="tags"><span class="tag cantera">Formación</span><span class="tag vida">Productos propios</span><span class="tag lab">Productos a medida</span></div>
+            <div class="tags"><span class="tag formacion">Formación</span><span class="tag propios">Propios</span><span class="tag medida">Medida</span></div>
           </div>
-          <div class="card" data-cats="vida lab" style="flex: 1 1 45%">
+          <div class="card" data-cats="propios medida" style="flex: 1 1 45%">
             <strong>Materiales</strong>
             Filamentos y electrónica.
-            <div class="tags"><span class="tag vida">Productos propios</span><span class="tag lab">Productos a medida</span></div>
+            <div class="tags"><span class="tag propios">Propios</span><span class="tag medida">Medida</span></div>
           </div>
            <div class="card" data-cats="espacio" style="flex: 1 1 45%">
             <strong>Suministros</strong>
-            Luz, agua, limpieza del local.
+            Luz, agua, limpieza.
             <div class="tags"><span class="tag espacio">Espacio</span></div>
           </div>
-          <div class="card" data-cats="consulting" style="flex: 1 1 45%">
+          <div class="card" data-cats="consultoria" style="flex: 1 1 45%">
             <strong>Hora Consultor</strong>
-            Coste intelectual y desplazamientos.
-            <div class="tags"><span class="tag consulting">Consultoría</span></div>
+            Coste intelectual.
+            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
           </div>
         </div>
       </div>
@@ -616,24 +574,24 @@
       <div class="cell revenues">
         <div class="cell-header">Fuentes de Ingresos</div>
         <div class="cell-body" style="flex-direction: row; flex-wrap: wrap;">
-          <div class="card" data-cats="cantera" style="flex: 1 1 45%">
+          <div class="card" data-cats="formacion" style="flex: 1 1 45%">
             <strong>Subvenciones</strong>
-            Becas y conciertos educativos.
-            <div class="tags"><span class="tag cantera">Formación</span></div>
+            Conciertos educativos.
+            <div class="tags"><span class="tag formacion">Formación</span></div>
           </div>
-          <div class="card" data-cats="vida" style="flex: 1 1 45%">
+          <div class="card" data-cats="propios" style="flex: 1 1 45%">
             <strong>Venta Producto</strong>
             Margen comercial (PVP).
-            <div class="tags"><span class="tag vida">Productos propios</span></div>
+            <div class="tags"><span class="tag propios">Propios</span></div>
           </div>
-          <div class="card" data-cats="lab consulting" style="flex: 1 1 45%">
+          <div class="card" data-cats="medida consultoria" style="flex: 1 1 45%">
             <strong>Servicios (Horas)</strong>
             Facturación por proyecto.
-            <div class="tags"><span class="tag lab">Productos a medida</span><span class="tag consulting">Consultoría</span></div>
+            <div class="tags"><span class="tag medida">Medida</span><span class="tag consultoria">Consultoría</span></div>
           </div>
           <div class="card" data-cats="espacio" style="flex: 1 1 45%">
             <strong>Cuotas y Alquiler</strong>
-            Talleres extraescolares y uso de salas.
+            Talleres y uso de salas.
             <div class="tags"><span class="tag espacio">Espacio</span></div>
           </div>
         </div>
@@ -647,31 +605,71 @@
   </footer>
 
   <script>
-    function filterCanvas(category) {
-      // 1. Gestionar botones activos
-      const buttons = document.querySelectorAll('.filter-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      event.currentTarget.classList.add('active');
+    // Estado de los filtros
+    const activeFilters = new Set(['all']);
 
-      // 2. Filtrar tarjetas
+    function toggleFilter(category) {
+      // Lógica de selección múltiple
+      if (category === 'all') {
+        // Si se pulsa "Todo", borramos el resto y solo dejamos "all"
+        activeFilters.clear();
+        activeFilters.add('all');
+      } else {
+        // Si se pulsa una categoría específica
+        if (activeFilters.has('all')) {
+          activeFilters.delete('all'); // Quitamos "all" si estaba
+        }
+
+        if (activeFilters.has(category)) {
+          activeFilters.delete(category); // Si ya estaba, la quitamos (toggle off)
+        } else {
+          activeFilters.add(category); // Si no estaba, la añadimos (toggle on)
+        }
+
+        // Si no queda ninguna seleccionada, volvemos a "all" por defecto
+        if (activeFilters.size === 0) {
+          activeFilters.add('all');
+        }
+      }
+
+      renderFilters();
+    }
+
+    function renderFilters() {
+      // 1. Actualizar visualmente los botones
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => {
+        const cat = btn.getAttribute('data-category');
+        if (activeFilters.has(cat)) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // 2. Filtrar las tarjetas
       const cards = document.querySelectorAll('.card');
-      
       cards.forEach(card => {
-        // data-cats contiene las categorías separadas por espacio: "vida espacio"
-        const categories = card.getAttribute('data-cats');
+        // Si está activo 'all', mostramos todo
+        if (activeFilters.has('all')) {
+          card.style.display = 'flex';
+          setTimeout(() => card.style.opacity = '1', 50);
+          return;
+        }
+
+        // Obtenemos las categorías de la tarjeta (string "cat1 cat2")
+        const cardCats = card.getAttribute('data-cats').split(' ');
         
-        if (category === 'all') {
+        // Comprobamos si ALGUNA de las categorías de la tarjeta está en los filtros activos
+        // (Lógica OR: mostrar si cumple al menos uno)
+        const isVisible = cardCats.some(cat => activeFilters.has(cat));
+
+        if (isVisible) {
           card.style.display = 'flex';
           setTimeout(() => card.style.opacity = '1', 50);
         } else {
-          // Comprobamos si la categoría seleccionada está incluida en las categorías de la tarjeta
-          if (categories && categories.includes(category)) {
-            card.style.display = 'flex';
-            setTimeout(() => card.style.opacity = '1', 50);
-          } else {
-            card.style.display = 'none';
-            card.style.opacity = '0';
-          }
+          card.style.display = 'none';
+          card.style.opacity = '0';
         }
       });
     }
