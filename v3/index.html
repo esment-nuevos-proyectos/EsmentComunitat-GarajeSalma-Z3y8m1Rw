@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Garaje Salma · Presentación Refinada</title>
+
+    <!-- No indexación -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+    <style>
+        /* Agora Modal Styles */
+        .agora-modal-overlay {
+            display: none;
+            position: absolute;
+            /* Relative to Step 5 container */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .agora-modal-overlay.active {
+            display: flex;
+        }
+
+        .agora-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 90%;
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .agora-close-btn {
+            margin-top: 25px;
+            background: var(--brand-dark);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .agora-close-btn:hover {
+            transform: scale(1.05);
+            background: #000;
+        }
+
+        .agora-info-trigger {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 50;
+            background: white;
+            color: var(--brand-dark);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            border: 2px solid var(--brand-dark);
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+
+        .agora-info-trigger:hover {
+            transform: scale(1.1);
+            background: var(--brand-dark);
+            color: white;
+        }
+
+        /* Intro Splash Screen */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0f172a;
+            /* Dark tech background */
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 1.5s ease-in-out;
+            /* Smooth transition for JS removal */
+            cursor: pointer;
+            /* INTERACTIVE */
+        }
+
+        #splash-screen.blur-out {
+            opacity: 0;
+            filter: blur(20px);
+            /* The "Blur" effect requested */
+            transform: scale(1.5);
+            /* Big zoom on exit */
+        }
+
+        #splash-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Hidden or removed static logo container as per user request */
+        #splash-logo-container {
+            display: none;
+        }
+
+        #splash-logo {
+            width: 280px;
+            display: block;
+        }
+
+        @keyframes logoEnter {
+            to {
+                opacity: 1;
+                transform: scale(1);
+                box-shadow: 0 0 80px rgba(255, 86, 48, 0.4);
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- INTRO SPLASH SCREEN -->
+    <div id="splash-screen">
+        <canvas id="splash-canvas"></canvas>
+        <div id="splash-logo-container">
+            <img id="splash-logo" src="assets/logo_horizontal.png" alt="Garaje Salma">
+        </div>
+        <!-- Hint removed as requested -->
+    </div>
+
+    <!-- NAVEGACIÓN BRAND -->
+    <!-- NAVEGACIÓN BRAND -->
+    <nav class="app-nav">
+        <div class="nav-brand">
+            <!-- Ensure this logo looks good on white background. -->
+            <img src="assets/logo_horizontal.png" alt="Garaje Salma | Esment">
+        </div>
+        <div class="stepper">
+            <button class="step-btn active" onclick="goToStep(1)">
+                <span class="step-number">1</span> <span>El Relato</span>
+            </button>
+            <button class="step-btn" onclick="goToStep(2)">
+                <span class="step-number">2</span> <span>Propósito Social</span>
+            </button>
+            <button class="step-btn" onclick="goToStep(3)">
+                <span class="step-number">3</span> <span>Modelo de Negocio</span>
+            </button>
+            <button class="step-btn" onclick="goToStep(4)">
+                <span class="step-number">4</span> <span>Plan de Negocio</span>
+            </button>
+            <button class="step-btn" onclick="goToStep(5)">
+                <span class="step-number">5</span> <span>Agora Garaje Salma</span>
+            </button>
+            <button class="step-btn" onclick="goToStep(6)">
+                <span class="step-number">6</span> <span>Expansión y Comunidad</span>
+            </button>
+
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- PASO 1 · RELATO (CONTENIDO COMPLETO V1) -->
+        <section id="step-1" class="view-section active">
+            <div class="container">
+                <div class="narrative-hero">
+                    <h1>Garaje Salma</h1>
+                    <p class="subtitle">Centro Tecnológico Social</p>
+                </div>
+
+                <div class="narrative-wrapper narrative">
+                    <h2>Por qué Garaje Salma</h2>
+                    <p class="lead">
+                        En los próximos años, el avance tecnológico y la irrupción de la inteligencia artificial
+                        cambiarán nuestra forma de vivir. Garaje Salma nace para dar sentido a la tecnología poniéndola
+                        al servicio de las personas.
+                    </p>
+                    <div class="pullquote">Tecnología con propósito: inclusión, autonomía, educación y comunidad</div>
+                    <p>
+                        No es un escaparate ni una academia, sino un laboratorio donde experimentar que la IA y la
+                        fabricación digital son herramientas de cohesión social. Garaje Salma acompaña a la comunidad en
+                        el proceso de apropiarse de la tecnología, reduciendo la brecha digital.
+                    </p>
+
+                    <h2>Gente, no usuarios</h2>
+                    <p>
+                        La base metodológica se inspira en el <strong>Lean Startup</strong> (Construir – Medir –
+                        Aprender). En el taller se construyen prototipos accesibles, se prueban en la zona de
+                        experimentación con vecinos reales, y se sistematizan los aprendizajes en el aula.
+                    </p>
+                    <div class="pullquote">Construir · Medir · Aprender, con las personas en el centro</div>
+
+                    <h2>Tecnología con conciencia</h2>
+                    <p>
+                        Desde proyectos de lectura fácil hasta paneles de datos de barrio. Nuestro enfoque cubre cuatro
+                        líneas: vida independiente, empleo tecnológico, cultura comunitaria e innovación organizativa.
+                    </p>
+
+                    <h2>Cuidado y Vida Independiente</h2>
+                    <p>
+                        La tecnología jugará un papel crucial en el <strong>cuidado de las personas</strong>,
+                        permitiendo modelos de vida más autónomos y seguros.
+                        En Garaje Salma, desarrollamos soluciones que facilitan la <strong>vida independiente en
+                            comunidad</strong>,
+                        desde sensórica no invasiva hasta asistentes de IA, siempre con el objetivo de humanizar el
+                        cuidado y fortalecer los lazos vecinales.
+                    </p>
+
+                    <div class="pullquote">La IA es una aliada cuando se diseña con propósito y supervisión humana</div>
+
+                    <h2>Un banco de pruebas</h2>
+                    <p>
+                        Garaje Salma actúa como una startup interna para Esment, probando metodologías ágiles antes de
+                        escalarlas. Es un espacio de escucha, diálogo y co-creación con el barrio, abierto a
+                        universidades y empresas éticas.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASO 2 · CANVAS SOCIAL (CONTENIDO COMPLETO V1) -->
+        <section id="step-2" class="view-section">
+            <div class="container">
+                <div class="social-header">
+                    <h2>Canvas Social</h2>
+                    <div class="purpose-strip">
+                        Dar sentido a la tecnología para transformar vidas, reducir brechas y construir comunidad.
+                    </div>
+                </div>
+
+                <div class="cs-grid"
+                    style="border: 4px solid var(--brand); padding: 20px; border-radius: 16px; background: #fff;">
+                    <!-- SOCIOS -->
+                    <div class="cs-cell area-partners">
+                        <div class="title">Socios Clave</div>
+                        <div class="content">
+                            <p>Ayuntamientos, servicios sociales y equipos de territorio.</p>
+                            <p>Centros educativos, familias y comunidad educativa.</p>
+                            <p>Asociaciones vecinales y colectivos culturales.</p>
+                            <p>Universidades y grupos de investigación aplicada.</p>
+                            <p>Empresas tecnológicas con compromiso social.</p>
+                        </div>
+                    </div>
+                    <!-- ACTIVIDADES -->
+                    <div class="cs-cell area-activities">
+                        <div class="title">Actividades Clave</div>
+                        <div class="content">
+                            <p>Prototipado y <strong>Validación Real (Living Lab)</strong>.</p>
+                            <p>Co-diseño de ayudas técnicas (3D) y sensórica.</p>
+                            <p>Itinerarios formativos: IA, diseño digital, robótica.</p>
+                            <p>Mapeo de agentes y vínculo comunitario.</p>
+                        </div>
+                    </div>
+                    <!-- RECURSOS -->
+                    <div class="cs-cell area-resources">
+                        <div class="title">Recursos Clave</div>
+                        <div class="content">
+                            <p>Espacio vivo: Taller, Aula y Ágora.</p>
+                            <p><strong>Guías de Salma</strong> (mediadores).</p>
+                            <p>Catálogo de dispositivos y plataforma 24x7.</p>
+                            <p>Protocolos de ética y gobierno del dato.</p>
+                        </div>
+                    </div>
+                    <!-- PROPUESTA DE VALOR -->
+                    <div class="cs-cell area-value">
+                        <div class="title">Propuesta de Valor</div>
+                        <div class="content">
+                            <p><strong>Vida Independiente:</strong> Teleasistencia avanzada y ayudas técnicas.</p>
+                            <p><strong>Empleo Tecnológico:</strong> Formación en IA y fabricación digital.</p>
+                            <p><strong>Comunidad:</strong> Laboratorio ciudadano y <strong>Refugio Climático</strong>.
+                            </p>
+                            <p><strong>Innovación Social:</strong> Investigación y consultoría para el tercer sector.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- RELACIONES -->
+                    <div class="cs-cell area-relationships">
+                        <div class="title">Relación Comunidad</div>
+                        <div class="content">
+                            <p>Guías de Salma para acogida.</p>
+                            <p>Ruta de vínculo (oír → recomendar).</p>
+                            <p>Escucha activa y co-creación.</p>
+                        </div>
+                    </div>
+                    <!-- CANALES -->
+                    <div class="cs-cell area-channels">
+                        <div class="title">Canales</div>
+                        <div class="content">
+                            <p>Ágora (Tercer Espacio, eventos).</p>
+                            <p>Talleres en escuelas.</p>
+                            <p><strong>Ágora Digital</strong> (Comunidad 24/7).</p>
+                        </div>
+                    </div>
+                    <!-- SEGMENTOS -->
+                    <div class="cs-cell area-segments">
+                        <div class="title">Segmentos de Comunidad</div>
+                        <div class="content">
+                            <p>Personas con discapacidad, mayores y en riesgo de exclusión.</p>
+                            <p>Vecindario, comercios y makers.</p>
+                            <p>Escuelas y Universidades.</p>
+                            <p>Administración y Tercer Sector.</p>
+                        </div>
+                    </div>
+                    <!-- COSTES -->
+                    <div class="cs-cell area-costs">
+                        <div class="title">Estructura de Costes (Social)</div>
+                        <div class="content">
+                            <p>Equipamiento tecnológico y mantenimiento.</p>
+                            <p>Equipo interdisciplinar y empleo inclusivo.</p>
+                            <p>Dinamización comunitaria.</p>
+                        </div>
+                    </div>
+                    <!-- INGRESOS -->
+                    <div class="cs-cell area-revenues">
+                        <div class="title">Impacto e Ingresos (Social)</div>
+                        <div class="content">
+                            <p>Formación con propósito.</p>
+                            <p>Consultoría e investigación.</p>
+                            <p>Pilotos de teleasistencia.</p>
+                            <p>Productos inclusivos y eventos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASO 3 · MODELO DE NEGOCIO (Updated from Step 6) -->
+        <section id="step-3" class="view-section">
+            <div class="container">
+                <div class="social-header">
+                    <h2>Modelo de Negocio</h2>
+                    <div class="purpose-strip"
+                        style="background: var(--brand-dark); box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                        Sostenibilidad mediante Diversificación: 5 Motores de Ingresos para el Impacto Social
+                    </div>
+                </div>
+
+                <!-- Filtros (Multi-Select) -->
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-cat="all" onclick="filterCanvas('all')">Todo</button>
+
+                    <button class="filter-btn" data-cat="formacion" onclick="filterCanvas('formacion')"
+                        style="color:#ff5630">
+                        <span class="dot" style="background:#ff5630"></span> Formación
+                    </button>
+
+                    <button class="filter-btn" data-cat="propios" onclick="filterCanvas('propios')"
+                        style="color:#d97706">
+                        <span class="dot" style="background:#ffab00"></span> Productos
+                    </button>
+
+                    <button class="filter-btn" data-cat="medida" onclick="filterCanvas('medida')" style="color:#0065ff">
+                        <span class="dot" style="background:#0065ff"></span> Servicios
+                    </button>
+
+                    <button class="filter-btn" data-cat="consultoria" onclick="filterCanvas('consultoria')"
+                        style="color:#6554c0">
+                        <span class="dot" style="background:#6554c0"></span> Consultoría
+                    </button>
+
+                    <button class="filter-btn" data-cat="espacio" onclick="filterCanvas('espacio')"
+                        style="color:#36b37e">
+                        <span class="dot" style="background:#36b37e"></span> Espacios
+                    </button>
+                </div>
+
+                <div class="bmc-grid-wrapper" id="step-3-test-grid">
+                    <style>
+                        /* OVERRIDES FOR STEP 3 (Previously Step 6) */
+                        #step-3-test-grid {
+                            border: 4px solid var(--brand) !important;
+                            /* RED SALMA FRAME */
+                            padding: 20px;
+                            border-radius: 16px;
+                            background: #fff;
+                        }
+
+                        #step-3-test-grid .bmc-cell {
+                            background: #ffffff !important;
+                            border: 2px solid var(--border) !important;
+                            box-shadow: none !important;
+                        }
+
+                        #step-3-test-grid .bmc-cell:hover {
+                            border-color: var(--brand) !important;
+                        }
+
+                        #step-3-test-grid .bmc-cell-header {
+                            background: #fffcfc !important;
+                            border-bottom: 1px solid var(--border) !important;
+                            color: var(--maroon) !important;
+                        }
+                    </style>
+
+                    <!-- PARTNERS -->
+                    <div class="bmc-cell area-partners">
+                        <div class="bmc-cell-header">Socios Clave</div>
+
+                        <div class="bmc-card" data-tags="formacion">
+                            <strong>Red Educativa</strong> FP Dual, Universidad, SOIB.
+                            <div class="tags"><span class="tag formacion">Formación</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="consultoria">
+                            <strong>Admin. Pública</strong> Proyectos de ciudad.
+                            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="propios medida">
+                            <strong>Partners Tecnológicos</strong> Hardware IoT y Domótica.
+                            <div class="tags"><span class="tag propios">Productos</span><span
+                                    class="tag medida">Servicios</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="consultoria">
+                            <strong>Centros de I+D Social</strong> CEAPAT, ONCE.
+                            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="espacio">
+                            <strong>Tejido Empresarial</strong> Clústers y Pymes locales.
+                            <div class="tags"><span class="tag espacio">Espacios</span><span
+                                    class="tag consultoria">Consultoría</span></div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVITIES -->
+                    <div class="bmc-cell area-activities">
+                        <div class="bmc-cell-header">Actividades Clave</div>
+
+                        <div class="bmc-card" data-tags="formacion">
+                            <strong>Formación Inclusiva</strong> Metodología 'Aprender Haciendo'.
+                            <div class="tags"><span class="tag formacion">Formación</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="propios">
+                            <strong>I+D Vida Independiente</strong> Sensores y Ayudas Técnicas.
+                            <div class="tags"><span class="tag propios">Productos</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="medida consultoria">
+                            <strong>Soluciones B2B</strong> Prototipado y Consultoría Técnica.
+                            <div class="tags"><span class="tag medida">Servicios</span><span
+                                    class="tag consultoria">Consultoría</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="medida">
+                            <strong>Personalización</strong> Adaptación ergonómica usuario.
+                            <div class="tags"><span class="tag medida">Servicios</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="espacio">
+                            <strong>Dinamización</strong> Eventos y Coworking social.
+                            <div class="tags"><span class="tag espacio">Espacios</span></div>
+                        </div>
+                    </div>
+
+                    <!-- RESOURCES -->
+                    <div class="bmc-cell area-resources">
+                        <div class="bmc-cell-header">Recursos Clave</div>
+
+                        <div class="bmc-card" data-tags="formacion consultoria medida propios espacio">
+                            <strong>Talento Híbrido</strong> Ingenieros + Terapeutas + Educadores.
+                            <div class="tags"><span class="tag formacion">Formación</span><span
+                                    class="tag consultoria">Consultoría</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="propios medida espacio">
+                            <strong>Tech Lab</strong> Impresoras 3D, Corte Láser, Electrónica.
+                            <div class="tags"><span class="tag propios">Productos</span><span
+                                    class="tag espacio">Espacios</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="consultoria">
+                            <strong>Know-How</strong> Patentes abiertas y metodologías ágiles.
+                            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
+                        </div>
+                    </div>
+
+                    <!-- VALUE PROPOSITION -->
+                    <div class="bmc-cell area-value">
+                        <div class="bmc-cell-header">Propuesta de Valor</div>
+
+                        <div class="bmc-card" data-tags="formacion">
+                            <strong>Inclusión Real</strong> Oportunidades para personas con discapacidad y riesgo
+                            exclusión.
+                            <div class="tags"><span class="tag formacion">Formación</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="propios medida formacion">
+                            <strong>Vida Independiente</strong> Autonomía en el hogar (Teleasistencia/Domótica).
+                            <div class="tags"><span class="tag propios">Productos</span><span
+                                    class="tag medida">Servicios</span><span class="tag formacion">Formación</span>
+                            </div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="medida propios">
+                            <strong>Servicios Profesionales</strong> Fabricación digital para Arquitectos/Empresas.
+                            <div class="tags"><span class="tag medida">Servicios</span><span
+                                    class="tag propios">Productos</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="consultoria">
+                            <strong>Transformación Social</strong> Tecnología con propósito ético.
+                            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="espacio">
+                            <strong>Hub Tecnológico</strong> Acceso democrático a herramientas avanzadas.
+                            <div class="tags"><span class="tag espacio">Espacios</span></div>
+                        </div>
+                    </div>
+
+                    <!-- RELATIONSHIPS -->
+                    <div class="bmc-cell area-relationships">
+                        <div class="bmc-cell-header">Relaciones</div>
+
+                        <div class="bmc-card" data-tags="formacion">
+                            <strong>Acompañamiento</strong> Técnico y Psicosocial continuo.
+                            <div class="tags"><span class="tag formacion">Formación</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="propios medida">
+                            <strong>Co-diseño</strong> El usuario participa en la creación.
+                            <div class="tags"><span class="tag propios">Productos</span><span
+                                    class="tag medida">Servicios</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="consultoria">
+                            <strong>Alianzas Estratégicas</strong> Innovación abierta.
+                            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="espacio">
+                            <strong>Comunidad</strong> Pertenencia y colaboración Maker.
+                            <div class="tags"><span class="tag espacio">Espacios</span></div>
+                        </div>
+                    </div>
+
+                    <!-- CHANNELS -->
+                    <div class="bmc-cell area-channels">
+                        <div class="bmc-cell-header">Canales</div>
+
+                        <div class="bmc-card" data-tags="propios medida">
+                            <strong>Plataforma Online</strong> E-commerce y repositorio digital.
+                            <div class="tags"><span class="tag propios">Productos</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="espacio formacion">
+                            <strong>Showroom Vivo</strong> El taller como espacio demostrador.
+                            <div class="tags"><span class="tag espacio">Espacios</span><span
+                                    class="tag formacion">Formación</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="medida consultoria">
+                            <strong>Canal Profesional</strong> Colegios Arquitectos / Ingenieros.
+                            <div class="tags"><span class="tag medida">Servicios</span><span
+                                    class="tag consultoria">Consultoría</span></div>
+                        </div>
+                    </div>
+
+                    <!-- SEGMENTS -->
+                    <div class="bmc-cell area-segments">
+                        <div class="bmc-cell-header">Segmentos</div>
+
+                        <div class="bmc-card" data-tags="formacion">
+                            <strong>Personas con Discapacidad</strong> Y en riesgo de exclusión (Foco Principal).
+                            <div class="tags"><span class="tag formacion">Formación</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="propios medida espacio">
+                            <strong>Empresas</strong> Compra de producto, encargos y uso de espacios.
+                            <div class="tags"><span class="tag propios">Productos</span><span
+                                    class="tag medida">Servicios</span><span class="tag espacio">Espacios</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="propios medida">
+                            <strong>Áreas Esment</strong> Ventas internas y equipamiento.
+                            <div class="tags"><span class="tag propios">Productos</span><span
+                                    class="tag medida">Servicios</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="consultoria">
+                            <strong>Tercer Sector & Empresas</strong> Consultoría de accesibilidad.
+                            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="propios medida espacio">
+                            <strong>Personas & Familias</strong> Necesidad de apoyo autonomía y uso del Hub.
+                            <div class="tags"><span class="tag propios">Productos</span><span
+                                    class="tag medida">Servicios</span><span class="tag espacio">Espacios</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="espacio">
+                            <strong>Comunidad Makers</strong> Vecinos y entusiastas tecnológicos.
+                            <div class="tags"><span class="tag espacio">Espacios</span></div>
+                        </div>
+                    </div>
+
+                    <!-- COSTS -->
+                    <div class="bmc-cell area-costs">
+                        <div class="bmc-cell-header">Costes</div>
+
+                        <div class="bmc-card" data-tags="formacion consultoria medida propios espacio">
+                            <strong>Equipo Expertos</strong> Técnicos especializados y soporte social.
+                            <div class="tags"><span class="tag formacion">Formación</span><span
+                                    class="tag consultoria">Todos</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="propios medida">
+                            <strong>Compras y Stock</strong> Materias primas (Filamentos, Electrónica).
+                            <div class="tags"><span class="tag propios">Productos</span><span
+                                    class="tag medida">Servicios</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="espacio formacion">
+                            <strong>Infraestructura</strong> Suministros (Luz, Agua) y Mantenimiento.
+                            <div class="tags"><span class="tag espacio">Espacios</span><span
+                                    class="tag formacion">Formación</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="propios medida">
+                            <strong>Amortización</strong> Maquinaria y Tecnología.
+                            <div class="tags"><span class="tag propios">Productos</span></div>
+                        </div>
+                    </div>
+
+                    <!-- REVENUES -->
+                    <div class="bmc-cell area-revenues">
+                        <div class="bmc-cell-header">Ingresos</div>
+
+                        <div class="bmc-card" data-tags="formacion">
+                            <strong>Conciertos</strong> Subvenciones por plaza formativa.
+                            <div class="tags"><span class="tag formacion">Formación</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="propios medida">
+                            <strong>Facturación B2B/B2C</strong> Venta de productos y servicios.
+                            <div class="tags"><span class="tag propios">Productos</span><span
+                                    class="tag medida">Servicios</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="consultoria">
+                            <strong>Proyectos I+D</strong> Licitaciones y consultoría.
+                            <div class="tags"><span class="tag consultoria">Consultoría</span></div>
+                        </div>
+
+                        <div class="bmc-card" data-tags="espacio">
+                            <strong>Alquiler & Membresía</strong> Uso de espacio y máquinas.
+                            <div class="tags"><span class="tag espacio">Espacios</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASO 4 · PLAN DE NEGOCIO (Updated) -->
+        <section id="step-4" class="view-section">
+            <div class="container">
+                <div class="social-header">
+                    <h2>Plan de Negocio 2026-2028</h2>
+                    <div class="purpose-strip">
+                        Hoja de ruta para la sostenibilidad y el impacto social
+                    </div>
+                </div>
+
+                <!-- NARRATIVA ESTRATÉGICA -->
+                <div class="narrative-blocks"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 50px;">
+
+                    <div class="narrative-card"
+                        style="background: white; padding: 25px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                        <div
+                            style="border-bottom: 3px solid var(--brand-dark); padding-bottom: 10px; margin-bottom: 15px;">
+                            <h3 style="color: var(--brand-dark); margin: 0; font-size: 1.25rem;">2026: Consolidación y
+                                Definición</h3>
+                        </div>
+                        <ul style="padding-left: 20px; color: var(--ink); line-height: 1.6; font-size: 0.95rem;">
+                            <li style="margin-bottom: 8px;"><strong>Objetivo Principal:</strong> Consolidar el modelo
+                                formativo y definir el catálogo de productos y servicios.</li>
+                            <li style="margin-bottom: 8px;"><strong>Hitos Operativos:</strong> 28 alumnos Prelaboral, 21
+                                DUAL, 15 primeros en Estratégicos y 15 en talleres abiertos a la comunidad.</li>
+                            <li style="margin-bottom: 8px;"><strong>Tracción:</strong> Revisión de especialidades
+                                formativas e inicio de ventas internas y externas.</li>
+                        </ul>
+                    </div>
+
+                    <div class="narrative-card"
+                        style="background: white; padding: 25px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                        <div
+                            style="border-bottom: 3px solid var(--brand-active); padding-bottom: 10px; margin-bottom: 15px;">
+                            <h3 style="color: var(--brand-active); margin: 0; font-size: 1.25rem;">2027: Expansión y
+                                Potenciación</h3>
+                        </div>
+                        <ul style="padding-left: 20px; color: var(--ink); line-height: 1.6; font-size: 0.95rem;">
+                            <li style="margin-bottom: 8px;"><strong>Objetivo Principal:</strong> Escalar la formación
+                                estratégica y potenciar el área comercial.</li>
+                            <li style="margin-bottom: 8px;"><strong>Hitos Operativos:</strong> Ampliación a +15 alumnos
+                                en estratégicos y +15 en talleres comunitarios.</li>
+                            <li style="margin-bottom: 8px;"><strong>Tracción:</strong> Foco intensivo en el crecimiento
+                                de ventas y diversificación de ingresos.</li>
+                        </ul>
+                    </div>
+
+                    <div class="narrative-card"
+                        style="background: white; padding: 25px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                        <div
+                            style="border-bottom: 3px solid var(--brand-focus); padding-bottom: 10px; margin-bottom: 15px;">
+                            <h3 style="color: var(--brand-focus); margin: 0; font-size: 1.25rem;">2028: Punto Óptimo y
+                                Consultoría</h3>
+                        </div>
+                        <ul style="padding-left: 20px; color: var(--ink); line-height: 1.6; font-size: 0.95rem;">
+                            <li style="margin-bottom: 8px;"><strong>Objetivo Principal:</strong> Alcanzar la plena
+                                capacidad operativa y liderazgo en servicios.</li>
+                            <li style="margin-bottom: 8px;"><strong>Hitos Operativos:</strong> 3 formaciones
+                                estratégicas (45 alumnos) y 3 talleres abiertos (45 alumnos).</li>
+                            <li style="margin-bottom: 8px;"><strong>Tracción:</strong> Consolidación del modelo de
+                                servicios y consultoría especializada como motor de sostenibilidad.</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+                    <button class="btn-export" onclick="exportToExcel()">
+                        <span>📥</span> Exportar Plan a Excel
+                    </button>
+                </div>
+
+                <!-- TABLA FINANCIERA (ENHANCED) -->
+                <div class="financial-table-container">
+                    <table class="financial-table" id="projectionTable">
+                        <thead>
+                            <tr>
+                                <th class="col-item">Partida / Concepto</th>
+                                <th class="col-real">2024 (Real)</th>
+                                <th class="col-real">2025 (Real)</th>
+                                <!-- Removed 2026 Ppto to simplify view as requested? No, user accepted "prescinde de 2026 ppt" for CHARTS, but maybe strictly confusing in table? 
+                                     The prompt said "luego mejora los gráficos usa 2024, 2025, 2026 est... (prescinde de 2026 ppt para no repetir)".
+                                     It refers to GRAPHS. Table usually keeps comparison. I'll keep table as is for richness unless told otherwise. -->
+                                <th class="col-plan">2026 (Ppto)</th>
+                                <th class="col-est">2026 (Est)</th>
+                                <th class="col-est">2027 (Est)</th>
+                                <th class="col-est">2028 (Est)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="financialBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="row-result">
+                                <td>RESULTADO NETO</td>
+                                <td id="res-24" class="negative">-13.535 €</td>
+                                <td id="res-25" class="negative">-44.156 €</td>
+                                <td id="res-26" class="positive">111.391 €</td>
+                                <td id="res-26e" class="positive">Calculando...</td>
+                                <td id="res-27" class="positive">Calculando...</td>
+                                <td id="res-28" class="positive">Calculando...</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- GRÁFICO EVOLUCIÓN (ENHANCED) -->
+                <div class="chart-wrapper">
+                    <h3 style="text-align:center; color:var(--brand-dark); margin-bottom:20px;">Tendencia Financiera
+                    </h3>
+                    <div class="chart-container" style="position: relative; height:400px; width:100%">
+                        <canvas id="financialChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- GRÁFICO MIX DE INGRESOS -->
+                <div class="chart-wrapper" style="margin-top: 40px;">
+                    <h3 style="text-align:center; color:var(--brand-dark); margin-bottom:20px;">Diversificación de
+                        Ingresos</h3>
+                    <div class="chart-container" style="position: relative; height:350px; width:100%">
+                        <canvas id="mixChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PASO 5 · AGORA (APP INTEGRACIÓN) -->
+        <section id="step-5" class="view-section" style="padding:0; overflow:hidden; position:relative;">
+
+            <!-- Floating Info Trigger -->
+            <div class="agora-info-trigger" onclick="toggleAgoraModal(true)" title="Ver Información">
+                i
+            </div>
+
+            <!-- Modal Overlay (Initial State: Active) -->
+            <div id="agoraModal" class="agora-modal-overlay active">
+                <div class="agora-modal-content">
+                    <div style="margin-bottom: 20px;">
+                        <span
+                            style="background: var(--brand-active); color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;">TECH
+                            DEMO</span>
+                    </div>
+                    <h2 style="color: var(--brand-dark); margin: 0 0 15px 0; font-size: 2rem;">Ágora: El Cerebro Digital
+                    </h2>
+                    <p
+                        style="color: var(--ink); font-size: 1.1rem; line-height: 1.6; margin: 0 auto; max-width: 600px;">
+                        <strong>Plataforma de Gestión Integral & Demostrador de IA.</strong><br><br>
+                        Más que un software, Ágora es la prueba viva de la capacidad de <strong>Salma</strong> para
+                        transformar organizaciones.
+                        Integra CRM, gestión académica y operaciones en un ecosistema unificado, demostrando en tiempo
+                        real el poder de la automatización inteligente.
+                    </p>
+                    <button class="agora-close-btn" onclick="toggleAgoraModal(false)">
+                        Entendido, ver Demo
+                    </button>
+                </div>
+            </div>
+
+            <!-- App Container -->
+            <iframe src="https://brain-project-agora-pro.mzrnbt.easypanel.host/"
+                style="width: 100%; height: 100%; border: none; display: block;" title="Agora Garaje Salma">
+            </iframe>
+        </section>
+
+        <!-- PASO 6 · Expansión y Comunidad (Fase II) -->
+        <section id="step-6" class="view-section" style="background: #f8fafc;">
+            <div class="container">
+                <div class="social-header">
+                    <h2>Fase II: Expansión y Comunidad</h2>
+                    <div class="purpose-strip" style="background: var(--brand-active);">
+                        Tecnología y Sostenibilidad al servicio de las Personas
+                    </div>
+                </div>
+
+                <div class="expansion-grid"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; margin-top: 40px;">
+
+                    <!-- AGORA CARD -->
+                    <div class="expansion-card"
+                        style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
+                        <div class="card-image" style="height: 300px; overflow: hidden; position: relative;">
+                            <img src="assets/Agora.png" alt="Espacio Ágora"
+                                style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+                        </div>
+                        <div class="card-content" style="padding: 30px;">
+                            <h3 style="color: var(--brand-dark); font-size: 1.8rem; margin-bottom: 15px;">Ágora: El
+                                Espacio</h3>
+                            <div class="tags" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                <span
+                                    style="background: #e0f2fe; color: #0369a1; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; font-weight: 600;">Refugio
+                                    Climático</span>
+                                <span
+                                    style="background: #f0fdf4; color: #15803d; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; font-weight: 600;">Sostenibilidad</span>
+                            </div>
+                            <p style="color: var(--ink); line-height: 1.6; font-size: 1.05rem;">
+                                Un entorno diseñado para ser mucho más que un edificio. Ágora es un <strong>refugio
+                                    climático</strong> y un pulmón para el barrio, donde la arquitectura sostenible se
+                                une a la función social.
+                                <br><br>
+                                Aquí la tecnología convive con la naturaleza para crear un espacio de encuentro,
+                                experimentación y bienestar comunitario.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- CAN PA CARD -->
+                    <div class="expansion-card"
+                        style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s ease;">
+                        <div class="card-image" style="height: 300px; overflow: hidden; position: relative;">
+                            <img src="assets/CanPa.png" alt="Can Pa"
+                                style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+                        </div>
+                        <div class="card-content" style="padding: 30px;">
+                            <h3 style="color: var(--brand-active); font-size: 1.8rem; margin-bottom: 15px;">Can Pa:
+                                Sabor y Futuro</h3>
+                            <div class="tags" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                <span
+                                    style="background: #fff7ed; color: #c2410c; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; font-weight: 600;">Tradición
+                                    Renovada</span>
+                                <span
+                                    style="background: #faf5ff; color: #7e22ce; padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; font-weight: 600;">Economía
+                                    Social</span>
+                            </div>
+                            <p style="color: var(--ink); line-height: 1.6; font-size: 1.05rem;">
+                                La combinación perfecta entre artesanía y tecnología. <strong>Can Pa</strong> recupera
+                                el saber hacer tradicional de la panadería y pastelería, adaptándolo a los nuevos
+                                tiempos.
+                                <br><br>
+                                Un motor de sostenibilidad económica que genera empleo inclusivo y ofrece productos de
+                                máxima calidad al barrio.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Defined Sphere Shell Logic
+        window.addEventListener('load', () => {
+            const canvas = document.getElementById('splash-canvas');
+            const splash = document.getElementById('splash-screen');
+
+            if (!canvas) {
+                if (splash) setTimeout(() => splash.remove(), 1000);
+                return;
+            }
+
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            let isExploding = false;
+
+            // CONCEPTS (Nodes on Sphere)
+            const concepts = [
+                "Comunidad", "Formación", "Inclusión",
+                "Tecnología", "IA", "Futuro", "Personas",
+                "Innovación", "Barrio", "Vida Independiente",
+                "Sostenibilidad", "Cuidados", "Empatía", "Autonomía",
+                "Tejido Vecinal", "Cohabitat", "Redes Apoyo", "Impacto",
+                "Ética", "Datos", "Transparencia", "Solidaridad", "Progreso", "Bienestar"
+            ];
+
+            const PARTICLE_COUNT = 250; // Extra vertices for solid sphere shape
+            let sphereRadius;
+
+            const resize = () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                sphereRadius = Math.min(width, height) * 0.60; // Enlarged +10%
+            };
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Point3D {
+                constructor(text = null, isCenter = false) {
+                    this.text = text;
+                    this.isCenter = isCenter;
+
+                    if (isCenter) {
+                        this.x = 0; this.y = 0; this.z = 0;
+                        this.size = 20;
+                        this.font = "900 24px Montserrat, sans-serif"; // Bolder
+                        this.text = "GARAJE SALMA";
+                        this.color = "#ffab00"; // YELLOW
+                    } else {
+                        // Distribute STRICTLY on Sphere Surface
+                        const theta = Math.random() * 2 * Math.PI;
+                        const phi = Math.acos(2 * Math.random() - 1);
+
+                        this.x = sphereRadius * Math.sin(phi) * Math.cos(theta);
+                        this.y = sphereRadius * Math.sin(phi) * Math.sin(theta);
+                        this.z = sphereRadius * Math.cos(phi);
+
+                        this.size = text ? 0 : 3.5; // Larger points for brightness
+                        const colors = ["#ff6b6b", "#0065ff", "#00b894", "#e6b800", "#6554c0", "#f8fafc"];
+                        this.color = text ? "#cbd5e1" : colors[Math.floor(Math.random() * colors.length)];
+                        this.font = "500 12px Montserrat, sans-serif";
+                    }
+
+                    // Explosion vectors
+                    this.ex = this.x / sphereRadius * 20;
+                    this.ey = this.y / sphereRadius * 20;
+                    this.ez = this.z / sphereRadius * 20;
+                    if (isCenter) { this.ex = 0; this.ey = 0; this.ez = 50; } // Center flies forward
+                }
+
+                rotateY(angle) {
+                    const cos = Math.cos(angle);
+                    const sin = Math.sin(angle);
+                    const x = this.x * cos - this.z * sin;
+                    const z = this.z * cos + this.x * sin;
+                    this.x = x;
+                    this.z = z;
+                }
+
+                rotateX(angle) {
+                    const cos = Math.cos(angle);
+                    const sin = Math.sin(angle);
+                    const y = this.y * cos - this.z * sin;
+                    const z = this.z * cos + this.y * sin;
+                    this.y = y;
+                    this.z = z;
+                }
+
+                updateExplosion() {
+                    this.x += this.ex;
+                    this.y += this.ey;
+                    this.z += this.ez;
+                }
+
+                project() {
+                    const fov = 400;
+                    const scale = fov / (fov + this.z + 500);
+
+                    return {
+                        x: width / 2 + this.x * scale,
+                        y: height / 2 + this.y * scale,
+                        scale: scale,
+                        alpha: (this.z + sphereRadius) / (2 * sphereRadius)
+                    };
+                }
+            }
+
+            // Init
+            particles.push(new Point3D("GARAJE SALMA", true)); // Center
+
+            const minWordDistance = 250; // Minimum distance between words for readability
+
+            concepts.forEach(c => {
+                let p, valid = false, attempts = 0;
+                while (!valid && attempts < 100) {
+                    p = new Point3D(c);
+                    valid = true;
+                    // Check against existing text particles
+                    for (let other of particles) {
+                        if (!other.text) continue;
+                        const dx = p.x - other.x;
+                        const dy = p.y - other.y;
+                        const dz = p.z - other.z;
+                        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+                        if (dist < minWordDistance) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                    attempts++;
+                }
+                particles.push(p);
+            });
+            for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Point3D());
+
+            let frameId;
+            const rotationSpeedY = 0.003;
+            const rotationSpeedX = 0.001;
+
+            const animate = () => {
+                ctx.clearRect(0, 0, width, height);
+
+                // Sort
+                particles.sort((a, b) => b.z - a.z);
+
+                // Draw Lines FIRST (Behind points)
+                // Connect surface points to neighbors to visualize SPHERE SHELL
+                if (!isExploding) {
+                    ctx.lineWidth = 0.4; // Discreet but visible lines
+                    // Only connect surface points (not center)
+                    const surfacePoints = particles.filter(p => !p.isCenter);
+
+                    // Optimization: Only check some neighbors or use efficient spatial grid?
+                    // For N=200, O(N^2) is ~40,000 checks, perfectly fine for modern JS.
+
+                    // Rotate first
+                    particles.forEach(p => {
+                        if (isExploding) p.updateExplosion();
+                        else { p.rotateY(rotationSpeedY); p.rotateX(rotationSpeedX); }
+                    });
+
+                    for (let i = 0; i < surfacePoints.length; i++) {
+                        for (let j = i + 1; j < surfacePoints.length; j++) {
+                            const p1 = surfacePoints[i];
+                            const p2 = surfacePoints[j];
+
+                            // 3D Distance check
+                            const dist = (p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2 + (p1.z - p2.z) ** 2;
+
+                            // Connect if somewhat close (increased threshold for better coverage)
+                            if (dist < 18000) { // Sqrt(18000) ~= 134px connection range
+                                const proj1 = p1.project();
+                                const proj2 = p2.project();
+
+                                if (proj1.scale > 0 && proj2.scale > 0) {
+                                    const alpha = Math.min(proj1.alpha, proj2.alpha);
+                                    ctx.beginPath();
+                                    ctx.strokeStyle = `rgba(255,255,255, ${alpha * 0.4})`;
+                                    ctx.moveTo(proj1.x, proj1.y);
+                                    ctx.lineTo(proj2.x, proj2.y);
+                                    ctx.stroke();
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    // Just update positions if exploding (no rotation logic here to avoid double update if moved)
+                    particles.forEach(p => p.updateExplosion());
+                }
+
+                // Draw Points & Text
+                particles.forEach(p => {
+                    const proj = p.project();
+                    if (proj.scale < 0) return;
+
+                    const alpha = isExploding ?
+                        Math.max(0, 1 - Math.abs(p.z) / 2000) :
+                        Math.max(0.2, (p.z + sphereRadius) / (2.5 * sphereRadius) + 0.3); // Brightness based on depth
+
+                    ctx.globalAlpha = alpha;
+
+                    if (p.text) {
+                        ctx.textAlign = "center";
+                        ctx.font = p.font;
+                        ctx.fillStyle = p.color;
+                        ctx.fillText(p.text, proj.x, proj.y);
+
+                        if (p.isCenter) {
+                            // Glow for center
+                            ctx.shadowColor = "#ffab00"; // Yellow Glow
+                            ctx.shadowBlur = 30; // Stronger glow
+                            ctx.fillText(p.text, proj.x, proj.y);
+                            ctx.shadowBlur = 0;
+                        }
+                    } else {
+                        ctx.beginPath();
+                        ctx.arc(proj.x, proj.y, p.size * proj.scale, 0, Math.PI * 2);
+                        ctx.fillStyle = p.color;
+                        ctx.fill();
+                    }
+                });
+                ctx.globalAlpha = 1;
+
+                frameId = requestAnimationFrame(animate);
+            };
+            animate();
+
+            // INTERACTION
+            const explodeAndTransition = () => {
+                if (isExploding) return;
+                isExploding = true;
+
+                // No hint to hide anymore
+
+                setTimeout(() => { splash.classList.add('blur-out'); }, 600);
+                setTimeout(() => {
+                    cancelAnimationFrame(frameId);
+                    if (splash) splash.remove();
+                }, 2000);
+            };
+
+            splash.addEventListener('click', explodeAndTransition);
+            window.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' || e.code === 'Enter') explodeAndTransition();
+            });
+        });
+
+        function toggleAgoraModal(show) {
+            const modal = document.getElementById('agoraModal');
+            if (show) {
+                modal.classList.add('active');
+            } else {
+                modal.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+
+</html>
